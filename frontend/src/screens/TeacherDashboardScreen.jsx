@@ -54,7 +54,6 @@ const TeacherDashboard = () => {
           <div className=" h-12 mb-4 p-4 bg-gray-100 rounded-xl"></div>
         </section>
       </main>
-     <Footer/>
     </>
   );
 };

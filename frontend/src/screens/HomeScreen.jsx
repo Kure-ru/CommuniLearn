@@ -1,19 +1,14 @@
-import Header from "../components/Header";
-import LPNav from "../components/LPNav";
+import Hero from "../components/Hero"
 import Footer from "../components/Footer";
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faLightbulb,
-  faCreditCard,
-  faPeopleGroup,
-} from "@fortawesome/free-solid-svg-icons";
+import { FaLightbulb, FaCreditCard, FaUsers } from "react-icons/fa";
 
-const LandingPage = () => {
+
+const HomeScreen = () => {
   return (
-    <div> 
-    <LPNav />
-    <Header />
+    <>
+    <Hero/>
+
     <main className="p-3">
       <h2 className="pb-8 text-3xl text-center font-header">
         Comment fonctionne CommuniLearn ?
@@ -21,9 +16,8 @@ const LandingPage = () => {
       <div className="flex p-10 gap-8">
         <div className="flex flex-col items-center">
           <div className=" flex justify-center content-center flex-wrap bg-emerald-100 rounded-full w-32 h-32">
-            <FontAwesomeIcon
-              className="h-3/5 text-neutral-800"
-              icon={faLightbulb}
+            <FaLightbulb
+              className="text-6xl text-neutral-800"
             />
           </div>
           <p className="font-header p-8 ">
@@ -34,9 +28,8 @@ const LandingPage = () => {
 
         <div className="flex flex-col items-center">
           <div className=" flex justify-center content-center flex-wrap bg-emerald-100 rounded-full w-32 h-32">
-            <FontAwesomeIcon
-              className="h-3/5 text-neutral-800"
-              icon={faCreditCard}
+            <FaCreditCard
+              className="text-6xl text-neutral-800"
             />
           </div>
           <p className="font-header p-8 ">
@@ -46,9 +39,8 @@ const LandingPage = () => {
 
         <div className="flex flex-col items-center">
           <div className=" flex justify-center content-center flex-wrap bg-emerald-100 rounded-full w-32 h-32">
-            <FontAwesomeIcon
-              className="h-3/5 text-neutral-800"
-              icon={faPeopleGroup}
+            <FaUsers
+              className="text-6xl text-neutral-800"
             />
           </div>
           <p className="font-header p-8 ">
@@ -66,10 +58,8 @@ const LandingPage = () => {
         </div>
       </section>
     </main>
-    <Footer/>
-  </div>
-  
+    </>
   )
 }
 
-export default LandingPage
+export default HomeScreen

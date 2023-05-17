@@ -1,0 +1,54 @@
+import { useState } from "react"
+import { FaBars } from 'react-icons/fa'
+import { Link } from "react-router-dom";
+
+const Nav = () => {
+
+  const [showMenu, setShowMenu] = useState(false)
+
+  const toggleMenu = () => {
+    setShowMenu(!showMenu)
+  }
+
+    return (
+        <nav className='p-10 flex flex-row w-screen justify-between items-center'>
+        <h3 className='font-title text-lg font-bold'>CommuniLearn</h3>
+
+        <FaBars onClick={toggleMenu} className="md:hidden block cursor-pointer"/>
+
+       <ul className={`${showMenu ? "fixed top-0 right-0 pl-4 pb-4 flex flex-col items-center bg-white gap-8 mt-24 " : "hidden"} md:flex font-header  flex-row justify-around md:w-10/12 items-center`}>
+          <li>Cours</li>
+          <li><input className='mx-4 md:w-60 rounded-full bg-gray-100'/></li>
+          <li>
+            <Link to="/login">Connectez-vous</Link>
+            </li>
+            <li>
+            <Link to="/register">Inscrivez-vous</Link>
+            </li>
+        </ul>
+      </nav>
+      )
+
+//   const [showMenu, setShowMenu] = useState(false)
+
+//   const toggleMenu = () => {
+//     setShowMenu(!showMenu)
+//   }
+
+//   return (
+//     <nav className='bg-white fixed top-0 left-0 right-0 h-16 border-solid border-b border-gray-200 p-5 flex md:flex-row w-screen justify-between items-center'>
+//     <h3 className='font-title text-lg font-bold'>CommuniLearn</h3>
+//   <FaBars onClick={toggleMenu} className="md:hidden block cursor-pointer"/>
+//   <ul className={`${showMenu ? "fixed top-0 right-0 pl-4 pb-4 flex flex-col items-center bg-white gap-8 mt-12 " : "hidden"} md:flex font-header  flex-row justify-around md:w-10/12 items-center`}>
+//   <li><input className='mx-4 md:w-60 rounded-full bg-gray-100'/></li>
+//   <li>Mes cours</li>
+//   <li>Mes élèves</li>
+//   <li className="flex gap-2 border-solid border border-gray-100 py-1 px-4 rounded-full items-center">
+//     <img className="w-8 rounded-full " src="teacher_profile.jpg" alt="teacher profile"/>
+//     Sarah B.</li>
+// </ul>
+//     </nav>
+//   )
+}
+
+export default Nav
