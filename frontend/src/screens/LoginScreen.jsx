@@ -27,7 +27,7 @@ const LoginScreen = () => {
         
         // local storage
         setAuthenticated(true)
-        window.localStorage.setItem('loggedUser', username)
+        window.localStorage.setItem('loggedUser', JSON.stringify(user))
         setUser(user);
         setUsername('')
         setPassword('') 
@@ -46,7 +46,6 @@ const LoginScreen = () => {
     }
   }
 
- 
 
   return (
     <main className="h-screen flex items-center justify-center">

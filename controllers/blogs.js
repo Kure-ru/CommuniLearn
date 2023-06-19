@@ -1,16 +1,17 @@
 const blogsRouter = require("express").Router();
 const Blog = require("../models/blogModel");
 const User = require("../models/userModel");
-
 const jwt = require('jsonwebtoken')
 
-const getTokenFrom = request => {
-  const authorization = request.get('authorization')
-  if (authorization && authorization.startWith('Bearer ')){
-    return authorization.replace('Bearer ', '')
+const { userExtractor } = require("../utils/middleware");
+
+const getTokenFrom = (request) => {
+  const authorization = request.get("authorization");
+  if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
+    return authorization.substring(7);
   }
-  return null
-}
+  return null;
+};
 
 blogsRouter.get("/", async (request, response) => {
  const blogs = await Blog
@@ -27,27 +28,35 @@ blogsRouter.get("/:id", async (request, response) => {
  }
 });
 
-blogsRouter.post("/", async (request, response) => {
-  const body = request.body;
+blogsRouter.post("/", userExtractor, async (request, response) => {
 
-  const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET)
-  if (!decodedToken.id){
+  const { title, content } = request.body;
+
+  const blog = new Blog({
+   title,
+   content,
+  });
+  
+  const token = getTokenFrom(request)
+ 
+  const decodedToken = jwt.verify(token, process.env.SECRET)
+  if (!token || !decodedToken.id){
     return response.status(401).json({ error: 'token invalid' })
   }
 
-  const user = await User.findById(body.userId);
+  const user = await User.findById(decodedToken.id);
 
-  const blog = new Blog({
-    title: body.title,
-    content: body.content,
-    user: user.id,
-  });
+  if (!user) {
+    return response.status(401).json({ error: "operation not permitted" });
+  }
+
+  blog.user = user._id;
 
   const savedBlog = await blog.save();
   user.blogs = user.blogs.concat(savedBlog._id);
   await user.save();
 
-  response.json(savedBlog);
+  response.status(201).json(savedBlog);
 });
 
 blogsRouter.delete("/:id", async (request, response) => {

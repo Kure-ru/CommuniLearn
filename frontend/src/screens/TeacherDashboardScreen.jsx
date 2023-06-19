@@ -1,7 +1,16 @@
 import DashboardCard from "../components/DashboardCard";
 import { Navigate, Link } from "react-router-dom";
+import blogService from '../services/blogs'
+import { useEffect, useState } from "react";
 
 const TeacherDashboard = () => {
+  const [blogs, setBlogs ] = useState([])
+
+
+useEffect(() => {
+  blogService.getAll().then((blogs) => setBlogs(blogs));
+}, []);
+
 
   if (!localStorage.getItem("loggedUser")) {
     return <Navigate replace to="/login" />;
@@ -48,10 +57,15 @@ const TeacherDashboard = () => {
               </div>
             </div> */}
             {/* <h3 className="text-xl font-bold font-header mb-4">Leçons</h3> */}
-            <div className=" h-12 mb-4 p-4 bg-gray-100 rounded-xl"></div>
-            <div className=" h-12 mb-4 p-4 bg-gray-100 rounded-xl"></div>
-            <div className=" h-12 mb-4 p-4 bg-gray-100 rounded-xl"></div>
-            <div className=" h-12 mb-4 p-4 bg-gray-100 rounded-xl"></div>
+            
+            <ul>
+              {blogs.map((blog, index) => <li key={index} className=" h-12 mb-4 p-4 bg-gray-100 rounded-xl">
+                {blog.title}
+              </li>)}
+              
+            </ul>
+
+
 
             <Link to="/new" className="text-emerald-400">nouvelle leçon →</Link>
           </section>

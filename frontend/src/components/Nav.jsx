@@ -1,14 +1,20 @@
 import { useState, useEffect } from "react";
 import { FaBars } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useNavigate, Navigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import blogService from "../services/blogs"
 
 const Nav = () => {
-  const [authenticated, setAuthenticated] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
-    setAuthenticated(localStorage.getItem("loggedUser"));
+    let userString = localStorage.getItem("loggedUser");
+    if (userString) { 
+    const user =JSON.parse(userString)
+    setUser(user);
+    blogService.setToken(user.token)
+  }
   }, []);
 
   const toggleMenu = () => {
@@ -18,7 +24,7 @@ const Nav = () => {
   const handleLogout = () => {
     console.log("logged out");
     localStorage.clear();
-    setAuthenticated(false);
+    setUser(null);
     <Navigate replace to="/" />;
   };
 
@@ -37,11 +43,8 @@ const Nav = () => {
             : "hidden"
         } md:flex font-header  flex-row justify-around md:w-10/12 items-center`}
       >
-        {/* <li>
-          <Link to="/search">Cours</Link>
-        </li> */}
 
-        {authenticated ? (
+        {user ? (
           <>
             <li
               id="username"
@@ -53,7 +56,7 @@ const Nav = () => {
                   src="teacher_profile.jpg"
                   alt="teacher profile"
                 />
-                <p>{authenticated}</p>
+                <p>{user.username}</p>
               </Link>
             </li>
             <li className="cursor-pointer" onClick={handleLogout}>Se déconnecter</li>
