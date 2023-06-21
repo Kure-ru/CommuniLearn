@@ -60,12 +60,10 @@ useEffect(() => {
             
             <ul>
               {blogs.map((blog, index) => <li key={index} className=" h-12 mb-4 p-4 bg-gray-100 rounded-xl">
-                {blog.title}
+                <Link to={`/lesson/${blog.id}`}>{blog.title}</Link>
               </li>)}
               
             </ul>
-
-
 
             <Link to="/new" className="text-emerald-400">nouvelle leçon →</Link>
           </section>
