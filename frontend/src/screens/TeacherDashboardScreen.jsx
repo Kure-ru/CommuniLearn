@@ -1,16 +1,20 @@
 import DashboardCard from "../components/DashboardCard";
 import { Navigate, Link } from "react-router-dom";
 import blogService from '../services/blogs'
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { UserContext } from "../context/UserContext";
 
 const TeacherDashboard = () => {
   const [blogs, setBlogs ] = useState([])
-
+  const [userBlogs, setUserBlogs ] = useState([])
+  const { user } = useContext(UserContext)
 
 useEffect(() => {
-  blogService.getAll().then((blogs) => setBlogs(blogs));
+  blogService.getAll().then((blogs) => {
+    setBlogs(blogs)
+    setUserBlogs(blogs.filter(blog => blog.user.id === user.id ))
+  });
 }, []);
-
 
   if (!localStorage.getItem("loggedUser")) {
     return <Navigate replace to="/login" />;
@@ -19,8 +23,8 @@ useEffect(() => {
       <>
         <main className="flex h-full bg-gradient-to-t from-white via-white to-emerald-200">
           <div className="p-8 w-4/12 ">
-            <DashboardCard category={"Mes élèves"} />
-            <DashboardCard category={"Mes cours"} />
+            {/* <DashboardCard category={"Mes élèves"} /> */}
+            <DashboardCard category={"Mes cours"} content={userBlogs}/>
           </div>
           <section className="flex flex-col m-8 w-5/12 h-2/5 bg-white rounded-xl p-8">
             <h2 className="text-2xl font-bold font-header mb-4">

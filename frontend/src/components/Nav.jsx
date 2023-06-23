@@ -2,19 +2,21 @@ import { useState, useEffect } from "react";
 import { FaBars } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Navigate } from "react-router-dom";
-import blogService from "../services/blogs"
+import blogService from "../services/blogs";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 
 const Nav = () => {
   const [showMenu, setShowMenu] = useState(false);
-  const [user, setUser] = useState(null)
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
     let userString = localStorage.getItem("loggedUser");
-    if (userString) { 
-    const user =JSON.parse(userString)
-    setUser(user);
-    blogService.setToken(user.token)
-  }
+    if (userString) {
+      const user = JSON.parse(userString);
+      setUser(user);
+      blogService.setToken(user.token);
+    }
   }, []);
 
   const toggleMenu = () => {
@@ -43,7 +45,6 @@ const Nav = () => {
             : "hidden"
         } md:flex font-header  flex-row justify-around md:w-10/12 items-center`}
       >
-
         {user ? (
           <>
             <li
@@ -59,7 +60,9 @@ const Nav = () => {
                 <p>{user.username}</p>
               </Link>
             </li>
-            <li className="cursor-pointer" onClick={handleLogout}>Se déconnecter</li>
+            <li className="cursor-pointer" onClick={handleLogout}>
+              Se déconnecter
+            </li>
           </>
         ) : (
           <>
