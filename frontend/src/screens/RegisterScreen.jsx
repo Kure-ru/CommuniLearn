@@ -1,31 +1,26 @@
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import loginService from "../services/login";
+import userService from "../services/user";
 
 const RegisterScreen = () => {
+  const navigate = useNavigate()
   const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
+  // const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [user, setUser ] = useState(null)
 
   const handleRegister = async (e) => {
     e.preventDefault()
     console.log(username)
     try{
-        const user = await loginService.login({
+        const user = await userService.create({
             username,
-            email,
             password
         })
-        
-        // local storage
-        window.localStorage.setItem('loggedUser',JSON.stringify(user))
-        setUser(user);
-        setUsername('')
-        setPassword('') 
+        navigate('/profile')
+
     } catch (err){
         toast.error('informations erronées', {
             position: "top-right",
@@ -54,13 +49,13 @@ const RegisterScreen = () => {
             value={username}
             onChange={({ target }) => setUsername(target.value)}
           />
-          <input
+          {/* <input
             className="p-4  rounded-lg mb-4"
             placeholder="Adresse email"
             name="email"
             value={email}
             onChange={({ target }) => setEmail(target.value)}
-          />
+          /> */}
           <input
             className="p-4 rounded-lg mb-4"
             placeholder="Mot de passe"

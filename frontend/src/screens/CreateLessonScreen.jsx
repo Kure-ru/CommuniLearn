@@ -3,7 +3,7 @@ import { Form } from "react-router-dom";
 import blogService from "../services/blogs"
 
 import { useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import { ImLink } from "react-icons/im";
 import { BiMoviePlay } from "react-icons/bi";
 import { TfiYoutube } from "react-icons/tfi"
@@ -16,6 +16,7 @@ const CreateLessonScreen = () => {
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const [blogs, setBlogs] = useState([])
+  const navigate = useNavigate()
 
   const handleSubmit =  async (e) => {
     e.preventDefault()
@@ -26,6 +27,7 @@ const CreateLessonScreen = () => {
         content,
       });
       setBlogs([...blogs, blog]);
+      navigate('/profile')
   } catch (err){
     toast.error("Oups! Il y a une petite erreur, essayez plus tard", {
       position: "top-right",

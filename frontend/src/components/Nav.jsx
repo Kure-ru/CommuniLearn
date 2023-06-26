@@ -60,6 +60,7 @@ const Nav = () => {
                 <p>{user.username}</p>
               </Link>
             </li>
+            <li><a href="/new">Nouvelle leçon</a></li>
             <li className="cursor-pointer" onClick={handleLogout}>
               Se déconnecter
             </li>

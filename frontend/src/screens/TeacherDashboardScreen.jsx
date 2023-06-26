@@ -22,14 +22,10 @@ useEffect(() => {
     return (
       <>
         <main className="flex h-full bg-gradient-to-t from-white via-white to-emerald-200">
-          <div className="p-8 w-4/12 ">
-            {/* <DashboardCard category={"Mes élèves"} /> */}
+          <div className="p-8 w-screen justify-evenly flex">
             <DashboardCard category={"Mes cours"} content={userBlogs}/>
+            <DashboardCard category={"Tous les cours"} content={blogs}/>
           </div>
-          <section className="flex flex-col m-8 w-5/12 h-2/5 bg-white rounded-xl p-8">
-            <h2 className="text-2xl font-bold font-header mb-4">
-              Leçons
-            </h2>
             {/* <div className="flex justify-between w-full text-slate-400">
               <div className=" mb-4 font-title font-grey-200 flex flex-col">
                 <span className="mb-2">L</span>
@@ -61,16 +57,6 @@ useEffect(() => {
               </div>
             </div> */}
             {/* <h3 className="text-xl font-bold font-header mb-4">Leçons</h3> */}
-            
-            <ul>
-              {blogs.map((blog, index) => <li key={index} className=" h-12 mb-4 p-4 bg-gray-100 rounded-xl">
-                <Link to={`/lesson/${blog.id}`}>{blog.title}</Link>
-              </li>)}
-              
-            </ul>
-
-            <Link to="/new" className="text-emerald-400">nouvelle leçon →</Link>
-          </section>
         </main>
       </>
     );

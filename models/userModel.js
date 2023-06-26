@@ -7,8 +7,15 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
-  name: String,
   passwordHash: String,
+  image: {
+    type: String,
+    require: true,
+  },
+  cloudinaryId: {
+    type: String,
+    require: true,
+  },
   blogs: [
     {
       type: mongoose.Schema.Types.ObjectId,

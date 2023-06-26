@@ -9,12 +9,12 @@ const DashboardCard = ({ category, content }) => {
     );
   } else {
     return (
-      <section className="flex flex-col w-full bg-white rounded-xl p-8">
+      <section className="flex flex-col w-full bg-white rounded-xl w-5/12 p-8">
       <h2 className="text-2xl font-bold font-header mb-4">{category}</h2>
         <div className="flex flex-col justify-end">
         <ul>
           {content.map((item, index) => (
-             <li key={index} className=" h-12 mb-4 p-4 bg-gray-100 rounded-xl">
+             <li key={index} className=" mb-4 p-4 bg-gray-100 rounded-xl">
              <Link to={`/lesson/${item.id}`}>{item.title}</Link>
            </li>
           ))}
