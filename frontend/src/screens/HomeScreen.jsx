@@ -1,9 +1,21 @@
 import Hero from "../components/Hero"
 
 import { FaLightbulb, FaCreditCard, FaUsers } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 
 const HomeScreen = () => {
+
+const navigate = useNavigate()
+
+useEffect(() => {
+  let userString = localStorage.getItem("loggedUser");
+  if (userString) {
+    navigate('/profile')
+  }
+}, []);
+
   return (
     <>
     <Hero/>

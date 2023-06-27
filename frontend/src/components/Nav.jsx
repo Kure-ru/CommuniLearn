@@ -24,7 +24,6 @@ const Nav = () => {
   };
 
   const handleLogout = () => {
-    console.log("logged out");
     localStorage.clear();
     setUser(null);
     <Navigate replace to="/" />;
@@ -51,7 +50,7 @@ const Nav = () => {
               id="username"
               className="border-solid border border-gray-100 py-1 px-4 rounded-full items-center"
             >
-              <Link to="/profile" className="flex flex-row gap-2  items-center">
+              <Link to="/settings" className="flex flex-row gap-2  items-center">
                 <img
                   className="w-8 rounded-full "
                   src="teacher_profile.jpg"
@@ -60,7 +59,9 @@ const Nav = () => {
                 <p>{user.username}</p>
               </Link>
             </li>
-            <li><a href="/new">Nouvelle leçon</a></li>
+            <li>
+              <a href="/new">Nouvelle leçon</a>
+            </li>
             <li className="cursor-pointer" onClick={handleLogout}>
               Se déconnecter
             </li>

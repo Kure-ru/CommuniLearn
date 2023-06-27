@@ -9,7 +9,7 @@ const DashboardCard = ({ category, content }) => {
     );
   } else {
     return (
-      <section className="flex flex-col w-full bg-white rounded-xl w-5/12 p-8">
+      <section className="flex flex-col bg-white rounded-xl w-5/12 p-8">
       <h2 className="text-2xl font-bold font-header mb-4">{category}</h2>
         <div className="flex flex-col justify-end">
         <ul>
