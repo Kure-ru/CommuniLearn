@@ -5,5 +5,5 @@ const MONGODB_URI = process.env.DB_URI
 
 module.exports = {
   MONGODB_URI,
-  PORT
+  PORT,
 }

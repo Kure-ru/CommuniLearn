@@ -8,13 +8,11 @@ const userSchema = new mongoose.Schema({
     unique: true
   },
   passwordHash: String,
-  image: {
+  profilePicture: {
     type: String,
-    require: true,
   },
   cloudinaryId: {
     type: String,
-    require: true,
   },
   blogs: [
     {

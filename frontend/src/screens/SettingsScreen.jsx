@@ -3,6 +3,9 @@ import { UserContext } from "../context/UserContext";
 import Button from "../components/Button";
 import userService from "../services/user";
 
+import ImageUpload from "../components/ImageUploader";
+
+
 const SettingsScreen = () => {
   const { user, setUser } = useContext(UserContext);
   const [username, setUsername] = useState(user.username);
@@ -16,6 +19,7 @@ const SettingsScreen = () => {
     userService
       .update(user.id, { username })
       .then((returnedUser) =>{ 
+        console.log(returnedUser)
         setUsername(returnedUser.username)
         setUser(returnedUser)})
       .catch(() => {
@@ -24,7 +28,9 @@ const SettingsScreen = () => {
       });
   };
 
+
   return (
+    
     <main className="p-10 flex flex-col justify-center">
       <h1 className="py-2 text-3xl font-bold font-header ">Mon profil</h1>
       <form className="flex flex-col" onSubmit={handleSubmit}>
@@ -32,6 +38,7 @@ const SettingsScreen = () => {
           <div>
             <img className="w-14" src="/teacher_profile.jpg" alt="profil" />
             <button className="text-sm text-emerald-500">Modifier</button>
+            <ImageUpload/>
           </div>
           <div className="flex gap-2">
             <input
