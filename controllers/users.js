@@ -20,7 +20,7 @@ usersRouter.post("/", async (request, response) => {
   const user = new User({
     username,
     passwordHash,
-    profilePicture: "https://res.cloudinary.com/degbjs0ku/image/upload/v1687872804/teacher_profile_wutgwf.jpg"
+    profilePicture: `https://res.cloudinary.com/${process.env.REACT_APP_CLOUD_NAME}/image/upload/v1687872804/teacher_profile_wutgwf.jpg`
   });
 
   const savedUser = await user.save();

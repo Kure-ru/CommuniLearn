@@ -5,8 +5,10 @@ import { Navigate } from "react-router-dom";
 import blogService from "../services/blogs";
 import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
+import { Image } from "cloudinary-react";
 
 const Nav = () => {
+
   const [showMenu, setShowMenu] = useState(false);
   const { user, setUser } = useContext(UserContext);
 
@@ -56,7 +58,7 @@ const Nav = () => {
               >
                 <img
                   className="w-8 rounded-full "
-                  src={`https://res.cloudinary.com/degbjs0ku/image/upload/v1687884581/${user.profilePicture}.jpg`}
+                  src={`https://res.cloudinary.com/${process.env.REACT_APP_CLOUD_NAME}/image/upload/v1687884581/${user.profilePicture}.jpg`}
                   alt="teacher profile"
                 />
                 <p>{user.username}</p>
@@ -65,6 +67,7 @@ const Nav = () => {
             <li>
               <a href="/new">Nouvelle leçon</a>
             </li>
+            <Image/>
             <li>
             </li>
             <li className="cursor-pointer" onClick={handleLogout}>

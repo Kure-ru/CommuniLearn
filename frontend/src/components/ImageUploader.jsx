@@ -1,6 +1,7 @@
 import userService from "../services/user";
 import { useContext, useState } from "react";
 import { UserContext } from "../context/UserContext";
+import Button from "./Button";
 
 const ImageUpload = () => {
   const [image, setImage] = useState(null);
@@ -14,12 +15,12 @@ const ImageUpload = () => {
     const data = new FormData();
     data.append("file", image);
     data.append("upload_preset", "ml_default");
-    data.append("cloud_name", "degbjs0ku");
+    data.append("cloud_name", process.env.REACT_APP_CLOUD_NAME);
     data.append("folder", "Cloudinary-React");
 
     try {
       const response = await fetch(
-        `https://api.cloudinary.com/v1_1/degbjs0ku/image/upload`,
+        `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`,
         {
           method: "POST",
           body: data,
@@ -66,9 +67,9 @@ const ImageUpload = () => {
   return (
     <div className="h-screen sm:px-8 md:px-16 sm:py-8">
       <div className="container mx-auto max-w-screen-lg h-full">
-        <header className="border-dashed border-2 border-gray-400 py-12 flex flex-col justify-center items-center">
+        <header className=" py-12 flex flex-col justify-center items-center">
           <p className="mb-3 font-semibold text-gray-900 flex flex-wrap justify-center">
-            <span>Click on Upload a File</span>&nbsp;
+            <span>Modifier la photo de profil</span>
           </p>
           <input
             id="hidden-input"
@@ -79,7 +80,7 @@ const ImageUpload = () => {
           />
           <label htmlFor="hidden-input" className="cursor-pointer">
             <div className="mt-2 rounded-sm px-3 py-1 bg-gray-200 hover:bg-gray-300 focus:shadow-outline focus:outline-none">
-              Upload a file
+              Confirmer
             </div>
           </label>
 
@@ -93,13 +94,13 @@ const ImageUpload = () => {
             className="rounded-sm px-3 py-1 bg-blue-700 hover:bg-blue-500 text-white focus:shadow-outline focus:outline-none disabled:cursor-not-allowed"
             disabled={!image}
           >
-            Upload now
+            Télécharger une image
           </button>
           <button
             onClick={handleResetClick}
             className="rounded-sm px-3 py-1 bg-red-700 hover:bg-red-500 text-white focus:shadow-outline focus:outline-none"
           >
-            Reset
+            Annuler
           </button>
         </div>
       </div>
