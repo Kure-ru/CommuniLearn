@@ -1,5 +1,11 @@
 import { Link } from "react-router-dom";
+import { AiOutlineEdit } from "react-icons/ai"
+
+
+
 const DashboardCard = ({ category, content }) => {
+
+
   if (!content) {
     return (
       <section className="flex flex-col mr-8 mb-8 w-full h-2/5 bg-white rounded-xl p-4">
@@ -14,8 +20,8 @@ const DashboardCard = ({ category, content }) => {
         <div className="flex flex-col justify-end">
         <ul>
           {content.map((item, index) => (
-             <li key={index} className=" mb-4 p-4 bg-gray-100 rounded-xl">
-             <Link to={`/lesson/${item.id}`}>{item.title}</Link>
+             <li key={index} className="flex items-center justify-between mb-4 p-4 bg-gray-100 rounded-xl">
+             <Link to={`/lesson/${item.id}`}>{item.title}</Link> {category === "Mes cours" ?  <Link to={`/edit/${item.id}`}><AiOutlineEdit/> </Link>: "" } 
            </li>
           ))}
         </ul>
