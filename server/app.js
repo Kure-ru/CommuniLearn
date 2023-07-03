@@ -6,10 +6,10 @@ const logger = require('./utils/logger')
 const mongoose = require("mongoose");
 require('express-async-errors')
 
-const blogsRouter = require('./controllers/blogs')
-const usersRouter = require('./controllers/users')
-const middleware = require('./utils/middleware')
-const loginRouter = require('./controllers/login')
+const blogsRouter = require('../server/controllers/blogs')
+const usersRouter = require('../server/controllers/users')
+const loginRouter = require('../server/controllers/login')
+const middleware = require('../server/utils/middleware')
 
 mongoose.set("strictQuery", false);
 
