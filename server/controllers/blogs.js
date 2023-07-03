@@ -1,9 +1,9 @@
 const blogsRouter = require("express").Router();
-const Blog = require("../models/blogModel");
-const User = require("../models/userModel");
+const Blog = require("../server/models/blogModel");
+const User = require("../server/models/userModel");
 const jwt = require("jsonwebtoken");
 
-const { userExtractor } = require("../utils/middleware");
+const { userExtractor } = require("../server/utils/middleware");
 
 const getTokenFrom = (request) => {
   const authorization = request.get("authorization");

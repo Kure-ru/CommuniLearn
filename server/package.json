@@ -4,8 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js"
+    "start": "node index",
+    "server": "nodemon index.js",
+    "client": "npm start --prefix frontend",
+    "clientinstall": "npm install --prefix frontend",
+    "dev": "concurrently \"npm run index\" \"npm run frontend\""
   },
   "keywords": [],
   "author": "",
@@ -13,6 +16,7 @@
   "dependencies": {
     "bcrypt": "^5.1.0",
     "cloudinary": "^1.37.2",
+    "concurrently": "^8.2.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",

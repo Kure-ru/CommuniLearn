@@ -1,8 +1,8 @@
 const bcrypt = require("bcrypt");
 const usersRouter = require("express").Router();
-const User = require("../models/userModel");
-const upload = require('../utils/multer');
-const cloudinary = require('../utils/cloudinary')
+const User = require("../server/models/userModel");
+const upload = require('../server/utils/multer');
+const cloudinary = require('../server/utils/cloudinary')
 const path = require("path");
 
 
