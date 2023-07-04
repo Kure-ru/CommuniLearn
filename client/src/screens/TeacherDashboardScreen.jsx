@@ -1,5 +1,5 @@
 import DashboardCard from "../components/DashboardCard";
-import { Navigate, Link } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import blogService from '../services/blogs'
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
@@ -12,9 +12,10 @@ const TeacherDashboard = () => {
 useEffect(() => {
   blogService.getAll().then((blogs) => {
     setBlogs(blogs)
+    if (user && user.id){
     setUserBlogs(blogs.filter(blog => blog.user.id === user.id ))
-  });
-}, []);
+}});
+}, [user]);
 
   if (!localStorage.getItem("loggedUser")) {
     return <Navigate replace to="/login" />;

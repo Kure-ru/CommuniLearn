@@ -8,7 +8,7 @@ import ImageUpload from "../components/ImageUploader";
 
 const SettingsScreen = () => {
   const { user, setUser } = useContext(UserContext);
-  const [username, setUsername] = useState(user.username);
+  const [username, setUsername] = useState(user ? user.username : '');
 
   const handleChange = (e) => {
     setUsername(e.target.value);
@@ -27,8 +27,6 @@ const SettingsScreen = () => {
         setUsername(user.username)
       });
   };
-
-  console.log(user)
 
   return (
     
