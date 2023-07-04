@@ -19,7 +19,7 @@ const Nav = () => {
       setUser(user);
       blogService.setToken(user.token);
     }
-  }, []);
+  }, [setUser]);
 
   const toggleMenu = () => {
     setShowMenu(!showMenu);

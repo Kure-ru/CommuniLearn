@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = 'http://localhost:2121/api/blogs'
+const baseUrl = 'https://communilearn.onrender.com/api/blogs'
 
 let token = null
 

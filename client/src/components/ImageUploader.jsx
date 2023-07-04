@@ -8,44 +8,21 @@ const ImageUpload = () => {
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [preview, setPreview] = useState(null);
+  const [error, setError ] = useState(null);
   const { user, setUser } = useContext(UserContext);
 
   const uploadImage = async () => {
     setLoading(true);
-    const data = new FormData();
-    data.append("file", image);
-    data.append("upload_preset", "ml_default");
-    data.append("cloud_name", process.env.REACT_APP_CLOUD_NAME);
-    data.append("folder", "Cloudinary-React");
-
+    setError(null);
     try {
-      const response = await fetch(
-        `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/upload`,
-        {
-          method: "POST",
-          body: data,
-        }
-      );
-      const res = await response.json();
-      setUrl(res.public_id);
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-    }
-
-    // update DB
-
-    const updatedUser = { ...user, profilePicture: url };
-    try {
-      const response = await userService.update(user.id, updatedUser);
+      const response = await userService.updatePicture(user.id, image);
       setUser(response)
-      console.log(`user: ${user}}`)
       setLoading(false);
     } catch (error) {
       setLoading(false);
       console.error("There was an error. Please try again.");
     }
-  };
+}
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -80,7 +57,7 @@ const ImageUpload = () => {
           />
           <label htmlFor="hidden-input" className="cursor-pointer">
             <div className="mt-2 rounded-sm px-3 py-1 bg-gray-200 hover:bg-gray-300 focus:shadow-outline focus:outline-none">
-              Confirmer
+            Télécharger une image
             </div>
           </label>
 
@@ -94,7 +71,7 @@ const ImageUpload = () => {
             className="rounded-sm px-3 py-1 bg-blue-700 hover:bg-blue-500 text-white focus:shadow-outline focus:outline-none disabled:cursor-not-allowed"
             disabled={!image}
           >
-            Télécharger une image
+            Confirmer
           </button>
           <button
             onClick={handleResetClick}
