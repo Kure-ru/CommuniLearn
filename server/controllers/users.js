@@ -1,7 +1,6 @@
 const bcrypt = require("bcrypt");
 const usersRouter = require("express").Router();
 const User = require("../models/userModel");
-const upload = require("../utils/multer");
 const uploadImage = require("../utils/cloudinary");
 
 usersRouter.get("/", async (request, response) => {
@@ -40,16 +39,9 @@ usersRouter.put("/:id", async (request, response, next) => {
     .catch((error) => next(error));
 });
 
-// usersRouter.post("/uploadImage/:id", (req, res, next) => {
-//   uploadImage(req.body.image)
-//     .then((url) => res.send(url))
-//     .catch((err) => res.status(500).send(err));
-
-// });
-
 usersRouter.post("/uploadImage/:id", async (req, res, next) => {
   try {
-    const url = await uploadImage(req.body.image); // Wait for the uploadImage function to complete
+    const url = uploadImage(req.body.image);
     const user = {
       profilePicture: url,
     };

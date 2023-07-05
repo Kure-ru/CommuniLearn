@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "http://localhost:2121/api/users";
+const baseUrl = "https://communilearn.onrender.com/api/users";
 
 let token = null;
 
@@ -26,4 +26,4 @@ const updatePicture = async (id, image) => {
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { create, update, updatePicture };
+export default { create, update, updatePicture, setToken };
