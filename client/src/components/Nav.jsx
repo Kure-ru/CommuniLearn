@@ -58,7 +58,7 @@ const Nav = () => {
               >
                 <img
                   className="w-8 rounded-full "
-                  src={`https://res.cloudinary.com/${process.env.REACT_APP_CLOUD_NAME}/image/upload/v1687884581/${user.profilePicture}.jpg`}
+                  src={user.profilePicture}
                   alt="teacher profile"
                 />
                 <p>{user.username}</p>

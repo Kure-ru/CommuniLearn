@@ -1,88 +1,107 @@
 import userService from "../services/user";
-import { useContext, useState } from "react";
+import { useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
-import Button from "./Button";
 
-const ImageUpload = () => {
-  const [image, setImage] = useState(null);
-  const [url, setUrl] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [preview, setPreview] = useState(null);
-  const [error, setError ] = useState(null);
+export default function UploadImage() {
   const { user, setUser } = useContext(UserContext);
+  const [loading, setLoading] = useState(false);
 
-  const uploadImage = async () => {
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
+  function uploadSingleImage(base64) {
     setLoading(true);
-    setError(null);
-    try {
-      const response = await userService.updatePicture(user.id, image);
-      setUser(response)
-      setLoading(false);
-    } catch (error) {
-      setLoading(false);
-      console.error("There was an error. Please try again.");
-    }
-}
+    userService.updatePicture(user.id, { image: base64})
+      .then((res) => {
+        console.log(res)
+        setUser(res)
+      })
+      .then(() => setLoading(false))
+      .catch(console.log);
+  }
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
 
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
+  const uploadImage = async (event) => {
+    const files = event.target.files;
 
-    reader.onload = () => {
-      setPreview(reader.result);
-    };
-  };
+    if (files.length === 1) {
+      const base64 = await convertBase64(files[0]);
+      uploadSingleImage(base64);
+      return;
+    }}
 
-  const handleResetClick = () => {
-    setPreview(null);
-    setImage(null);
-  };
-
-  return (
-    <div className="h-screen sm:px-8 md:px-16 sm:py-8">
-      <div className="container mx-auto max-w-screen-lg h-full">
-        <header className=" py-12 flex flex-col justify-center items-center">
-          <p className="mb-3 font-semibold text-gray-900 flex flex-wrap justify-center">
-            <span>Modifier la photo de profil</span>
-          </p>
+  function UploadInput() {
+    return (
+      <div className="flex items-center justify-left w-full">
+        <label
+          htmlFor="dropzone-file"
+          className="flex p-5 flex-col items-center justify-center w-1/4 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600"
+        >
+          <div className="flex flex-col items-center justify-center pt-5 pb-6">
+            <svg
+              aria-hidden="true"
+              className="w-10 h-10 mb-3 text-gray-400"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+              ></path>
+            </svg>
+            <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
+              <span className="font-semibold">Cliquez pour télécharger</span> ou faites glisser le fichier
+            </p>
+            <p className="text-xs text-gray-500 dark:text-gray-400">
+              SVG, PNG, JPG or GIF (MAX. 800x400px)
+            </p>
+          </div>
           <input
-            id="hidden-input"
+            onChange={uploadImage}
+            id="dropzone-file"
             type="file"
             className="hidden"
-            onChange={handleImageChange}
-            accept="image/*"
+            multiple
           />
-          <label htmlFor="hidden-input" className="cursor-pointer">
-            <div className="mt-2 rounded-sm px-3 py-1 bg-gray-200 hover:bg-gray-300 focus:shadow-outline focus:outline-none">
-            Télécharger une image
-            </div>
-          </label>
+        </label>
+      </div>
+    );
+  }
 
-          <div className="flex justify-center items-center mt-5 mx-3 max-w-xs">
-            {preview && <img src={preview} alt="preview" className="w-full" />}
+  return (
+    <div className="flex justify-center flex-col m-8 ">
+      <div>
+        <h2 className="mb-4 text-xl tracking-tight text-left text-gray-900 dark:text-white">
+        Modifier la photo de profil
+        </h2>
+      </div>
+      <div>
+   
+      </div>
+      <div>
+        {loading ? (
+          <div className="flex items-center justify-center">
           </div>
-        </header>
-        <div className="flex justify-end pb-8 pt-6 gap-4">
-          <button
-            onClick={uploadImage}
-            className="rounded-sm px-3 py-1 bg-blue-700 hover:bg-blue-500 text-white focus:shadow-outline focus:outline-none disabled:cursor-not-allowed"
-            disabled={!image}
-          >
-            Confirmer
-          </button>
-          <button
-            onClick={handleResetClick}
-            className="rounded-sm px-3 py-1 bg-red-700 hover:bg-red-500 text-white focus:shadow-outline focus:outline-none"
-          >
-            Annuler
-          </button>
-        </div>
+        ) : (
+          <UploadInput />
+        )}
       </div>
     </div>
   );
-};
-
-export default ImageUpload;
+}
