@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "https://communilearn.onrender.com/api/users";
+const baseUrl = "http://localhost:2121/api/users";
 
 let token = null;
 
@@ -16,17 +16,13 @@ const create = async (newObject) => {
 };
 
 const update = (id, newObject) => {
-    console.log(newObject)
   const request = axios.put(`${baseUrl}/${id}`, newObject);
-  console.log("Update request", request);
   return request.then((response) => response.data);
 };
 
-const updatePicture = (id, newObject) => {
-    console.log(newObject)
-  const request = axios.put(`${baseUrl}/${id}/profilePicture`, newObject);
-  console.log("Update request", request);
-  return request.then((response) => response.data);
+const updatePicture = async (id, image) => {
+  const response = await axios.post(`${baseUrl}/uploadImage/${id}`, image);
+  return response.data;
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
