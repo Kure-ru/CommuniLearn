@@ -50,6 +50,9 @@ usersRouter.post("/uploadImage/:id", async (req, res, next) => {
       new: true,
     });
 
+    // CORS headers
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
     res.json(updatedUser);
   } catch (error) {
     next(error);
