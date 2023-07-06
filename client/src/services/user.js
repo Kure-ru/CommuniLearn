@@ -1,5 +1,5 @@
 import axios from "axios";
-const baseUrl = "https://communilearn.onrender.com/api/users";
+const baseUrl = "/api/users";
 
 let token = null;
 
