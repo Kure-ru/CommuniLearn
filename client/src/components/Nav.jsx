@@ -56,11 +56,11 @@ const Nav = () => {
                 to="/settings"
                 className="flex flex-row gap-2  items-center"
               >
-                <img
+                {/* <img
                   className="w-8 rounded-full "
                   src={user.profilePicture}
                   alt="teacher profile"
-                />
+                /> */}
                 <p>{user.username}</p>
               </Link>
             </li>
