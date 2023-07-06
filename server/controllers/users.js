@@ -53,7 +53,12 @@ usersRouter.post("/uploadImage/:id", async (req, res, next) => {
 
     res.json(updatedUser);
   } catch (error) {
-    next(error);
+    if (error.message === "Must supply api_key") {
+      // Handle the "Must supply api_key" error specifically
+      res.status(500).json({ error: "Missing API key" });
+    } else {
+      next(error);
+    }
   }
 });
 

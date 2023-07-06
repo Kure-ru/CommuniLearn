@@ -5,10 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "server": "nodemon index.js",
-    "client": "npm start --prefix frontend",
-    "clientinstall": "npm install --prefix frontend",
-    "dev": "concurrently \"npm run index\" \"npm run frontend\""
+    "server": "nodemon index.js"
   },
   "keywords": [],
   "author": "",
