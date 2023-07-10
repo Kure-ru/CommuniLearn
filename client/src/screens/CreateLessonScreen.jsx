@@ -3,7 +3,7 @@ import { Form } from "react-router-dom";
 import blogService from "../services/blogs"
 
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { ImLink } from "react-icons/im";
 import { BiMoviePlay } from "react-icons/bi";
 import { TfiYoutube } from "react-icons/tfi"
@@ -100,7 +100,7 @@ const CreateLessonScreen = () => {
         </fieldset> */}
 
     <div className="flex justify-around">
-      <Button text={'supprimer'} color={"white"}/>
+      <Link to={'/'}> <Button text={'annuler'} color={"white"}/></Link>
       <Button text={'sauvegarder'} color={"emerald-200"}/>
     </div> 
 

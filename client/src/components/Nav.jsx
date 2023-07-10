@@ -21,6 +21,7 @@ const Nav = () => {
     }
   }, [setUser]);
 
+
   const toggleMenu = () => {
     setShowMenu(!showMenu);
   };
@@ -76,9 +77,9 @@ const Nav = () => {
           </>
         ) : (
           <>
-            <li>
+            {/* <li>
               <input className="mx-4 md:w-60 rounded-full bg-gray-100" />
-            </li>
+            </li> */}
             <li>
               <Link to="/login">Connectez-vous</Link>
             </li>

@@ -1,7 +1,4 @@
 import { Link } from "react-router-dom";
-import { AiOutlineEdit } from "react-icons/ai"
-
-
 
 const DashboardCard = ({ category, content }) => {
 
@@ -21,13 +18,13 @@ const DashboardCard = ({ category, content }) => {
         <ul>
           {content.map((item, index) => (
              <li key={index} className="flex items-center justify-between mb-4 p-4 bg-gray-100 rounded-xl">
-             <Link to={`/lesson/${item.id}`}>{item.title}</Link> {category === "Mes cours" ?  <Link to={`/edit/${item.id}`}><AiOutlineEdit/> </Link>: "" } 
+             <Link to={`/lesson/${item.id}`}>{item.title}</Link>
            </li>
           ))}
         </ul>
-          <a className="text-sm text-emerald-400 text-right" href="#">
+          {/* <a className="text-sm text-emerald-400 text-right" href="#">
             afficher tout →
-          </a>
+          </a> */}
         </div>
       </section>
     );
