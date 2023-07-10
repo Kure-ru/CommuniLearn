@@ -17,9 +17,11 @@ const DashboardCard = ({ category, content }) => {
         <div className="flex flex-col justify-end">
         <ul>
           {content.map((item, index) => (
-             <li key={index} className="flex items-center justify-between mb-4 p-4 bg-gray-100 rounded-xl">
-             <Link to={`/lesson/${item.id}`}>{item.title}</Link>
+             <Link to={`/lesson/${item.id}`}>
+              <li key={index} className="flex items-center justify-between mb-4 p-4 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 rounded-xl">
+             {item.title}
            </li>
+           </Link>
           ))}
         </ul>
           {/* <a className="text-sm text-emerald-400 text-right" href="#">
