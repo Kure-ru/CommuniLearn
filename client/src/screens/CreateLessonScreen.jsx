@@ -45,20 +45,23 @@ const CreateLessonScreen = () => {
   return (
     <main className="flex flex-col items-center font-header">
       <h1 className="py-2 text-3xl font-bold  ">Créer une leçon</h1>
-      <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
+      <form className="py-8 flex flex-col gap-8 w-9/12" onSubmit={handleSubmit}>
         <fieldset>
           <legend className="text-2xl pb-6">Description</legend>
           <div className="flex flex-col pb-6">
             <label className="text-slate-400">Titre de la leçon *</label>
             <input className="rounded-md  border border-slate-400 p-2" 
              value={title}
+             minlength="5"
+             required
              onChange={({ target }) => setTitle(target.value)}/>
           </div>
           <div className="flex flex-col">
             <label className="text-slate-400">Description *</label>
             <textarea className="rounded-md border border-slate-400 p-2"
              value={content}
-             onChange={({ target }) => setContent(target.value)} />
+             onChange={({ target }) => setContent(target.value)} 
+             required/>
           </div>
         </fieldset>
        {/* <h2 className="text-2xl py-4">Contenu</h2>
@@ -100,7 +103,7 @@ const CreateLessonScreen = () => {
         </fieldset> */}
 
     <div className="flex justify-around">
-      <Link to={'/'}> <Button text={'annuler'} color={"white"}/></Link>
+      <Link to={'/'}> <Button type="button" text={'annuler'} color={"slate-200"}/></Link>
       <Button text={'sauvegarder'} color={"emerald-200"}/>
     </div> 
 
