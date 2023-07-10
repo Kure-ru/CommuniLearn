@@ -5,50 +5,66 @@ import { toast } from "react-toastify";
 import userService from "../services/user";
 
 const RegisterScreen = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
-  // const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleRegister = async (e) => {
-    e.preventDefault()
-    console.log(username)
-    try{
+    e.preventDefault();
+    try {
+      if (password !== confirmPassword) {
+        toast.error("Les mots de passe ne correspondent pas", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      } else {
         const user = await userService.create({
-            username,
-            password
-        })
-        navigate('/profile')
-
-    } catch (err){
-        toast.error('informations erronées', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-            });
+          username,
+          password,
+        });
+        navigate("/profile");
+      }
+    } catch (err) {
+      toast.error("Oups! Il y a eu une erreur. Veuillez réessayer.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
     }
-  }
+  };
   return (
-    <main className="my-10 flex items-center justify-center">
-      <section className="font-header bg-zinc-200 p-8">
+    <main className="mb-4 flex items-center justify-center">
+      <section className="rounded-md font-header bg-zinc-200 py-4 px-8">
         <h1 className="py-2 text-3xl font-bold font-header ">S'inscrire</h1>
         <p className="pb-4">
           Inscrivez-vous gratuitement pour accéder à tous les cours
         </p>
         <form className="flex flex-col py-6" onSubmit={handleRegister}>
+          <div>
+            <label className=" block text-gray-700 text-sm font-bold mb-2">
+            Nom d'utilisateur
+            </label>
           <input
-            className="p-4 rounded-lg mb-4"
+            className="p-4 w-full rounded-lg mb-4"
             placeholder="Nom d'utilisateur"
             name="username"
             value={username}
             onChange={({ target }) => setUsername(target.value)}
           />
+          </div>
+          
           {/* <input
             className="p-4  rounded-lg mb-4"
             placeholder="Adresse email"
@@ -56,21 +72,40 @@ const RegisterScreen = () => {
             value={email}
             onChange={({ target }) => setEmail(target.value)}
           /> */}
+          <div>
+            <label className=" block text-gray-700 text-sm font-bold mb-2">
+            Mot de passe
+            </label>
           <input
-            className="p-4 rounded-lg mb-4"
+            className="p-4 rounded-lg mb-4 w-full"
             placeholder="Mot de passe"
             name="password"
+            type="password"
+            minlength="8"
+            required
             value={password}
             onChange={({ target }) => setPassword(target.value)}
           />
-          <input
-            className="p-4 rounded-lg mb-4"
+          </div>
+
+          <div>
+            <label className=" block text-gray-700 text-sm font-bold mb-2">
+            Confirmer le mot de passe
+            </label>
+            <input
+            className="p-4 rounded-lg mb-4 w-full"
             placeholder="Confirmez le mot de passe"
             name="confirmPassword"
             value={confirmPassword}
+            type="password"
+            minlength="8"
+            required
             onChange={({ target }) => setConfirmPassword(target.value)}
           />
-          <button className="bg-emerald-100 p-4  rounded-lg mb-4" type="submit">
+          </div>
+
+          
+          <button className="bg-emerald-100 p-4  rounded-lg my-4" type="submit">
             Inscrivez-vous
           </button>
           <span>
