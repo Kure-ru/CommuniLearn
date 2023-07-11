@@ -1,5 +1,5 @@
 import axios from 'axios'
-const baseUrl = '/api/blogs'
+const baseUrl = 'http://localhost:2121/api/blogs'
 
 let token = null
 
@@ -30,6 +30,11 @@ const update = (id, newObject) => {
     return request.then(response => response.data)
 }
 
+const deleteBlog = (id) => {
+    const request = axios.delete(`${ baseUrl }/${id}`)
+    return request.then(response => response.data)
+}
+
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { get, getAll, create, update, setToken}
+export default { get, getAll, create, update, setToken, deleteBlog }
