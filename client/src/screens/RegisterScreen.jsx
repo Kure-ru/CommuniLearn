@@ -61,6 +61,7 @@ const RegisterScreen = () => {
             placeholder="Nom d'utilisateur"
             name="username"
             value={username}
+            required
             onChange={({ target }) => setUsername(target.value)}
           />
           </div>

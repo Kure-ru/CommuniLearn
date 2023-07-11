@@ -96,6 +96,7 @@ const LoginScreen = () => {
           </Link>
         </span>
 
+
         {/* <div className="border-t border-zinc-400 pt-6">
           <button className="m-auto flex gap-4 p-4 items-center bg-white">
             <FcGoogle /> Se connecter avec Google
