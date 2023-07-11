@@ -1,7 +1,7 @@
 
 # Communilearn
 
-Live site : [CommuniLearn](https://communilearn-7pig.onrender.com)
+Live site : [CommuniLearn](https://communilearn.onrender.com/)
 
 
 ![CommuniLearn Preview](preview.png)
