@@ -47,8 +47,8 @@ const LoginScreen = () => {
   };
 
   return (
-    <main className="flex items-center justify-center mb-14">
-      <section className="rounded-md font-header bg-zinc-200 p-8 mb-4">
+    <main className="flex items-center justify-center my-8">
+      <section className="rounded-md font-header bg-zinc-200 p-12 mb-4">
         <h1 className="py-2 text-3xl font-bold font-header ">Se connecter</h1>
         <form
           method="post"

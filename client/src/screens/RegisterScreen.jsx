@@ -45,7 +45,7 @@ const RegisterScreen = () => {
     }
   };
   return (
-    <main className="mb-4 flex items-center justify-center">
+    <main className="my-4 flex items-center justify-center">
       <section className="rounded-md font-header bg-zinc-200 py-4 px-8">
         <h1 className="py-2 text-3xl font-bold font-header ">S'inscrire</h1>
         <p className="pb-4">

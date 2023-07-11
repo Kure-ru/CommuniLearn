@@ -25,37 +25,58 @@ const LessonScreen = () => {
   }, [lessonID]);
 
   const handleDelete = async () => {
-    const blog = await blogService.deleteBlog(lessonID)
-    console.log('blog deleted', blog)
-    
+    const blog = await blogService.deleteBlog(lessonID);
+    console.log("blog deleted", blog);
   };
 
   return (
-    <div className="bg-slate-100 p-7">
-      <h2 className="text-xl py-4">
-        <Link to={"/profile"}>Cours</Link>
-      </h2>
-      <div className="bg-white p-4 rounded-lg">
-        <div className="border-b border-solid text-2xl border-slate-100 py-2 flex flex-row gap-6 items-baseline ">
-          <h1>{blog.title}</h1>
+
+      <div className="bg-slate-100 p-12">
+        <div className="bg-white p-12 rounded-lg">
+        <div className="py-8">
+        <div class="min-w-0 flex items-end gap-8">
+          <h2 class="text-2xl font-bold leading-7 pr-8 text-slate-900 sm:truncate sm:text-3xl sm:tracking-tight">
+            {blog.title}
+          </h2>
+
           {user && blog.user === user?.id && (
-            <div className="flex flex-row gap-4">
-              <Link
-                to={`/edit/${blog.id}`}
-                className="hover:text-emerald-400 active:text-emerald-600"
+          <div class="mt-5 flex lg:ml-4 lg:mt-0">
+            <span class="hidden sm:block">
+            <Link
+                  to={`/edit/${blog.id}`}
+                >
+              <button
+                type="button"
+                class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-emerald-50"
               >
-                <AiOutlineEdit />{" "}
+                <AiOutlineEdit className="-ml-0.5 mr-1.5 h-5 w-5 text-slate-400" />
+                Editer
+              </button>
               </Link>
-              <AiOutlineDelete
-                onClick={handleDelete}
-                className="cursor-pointer hover:text-emerald-400 active:text-emerald-600"
-              />
+            </span>
+
+            <span class="ml-3 hidden sm:block">
+              <button
+               onClick={handleDelete}
+                type="button"
+                class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-emerald-50"
+              >
+                <AiOutlineDelete className="-ml-0.5 mr-1.5 h-5 w-5 text-slate-400" />
+                Supprimer
+              </button>
+            </span>
+
             </div>
           )}
+          </div>
         </div>
-        <div className="py-4">{blog.content}</div>
+
+
+
+          <div className="py-4">{blog.content}</div>
+        </div>
       </div>
-    </div>
+
   );
 };
 
