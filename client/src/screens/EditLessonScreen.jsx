@@ -4,20 +4,22 @@ import blogService from "../services/blogs";
 import Button from "../components/Button";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LessonForm from "../components/LessonForm";
 
 const EditLessonScreen = () => {
-let { lessonID } = useParams();
+  let { lessonID } = useParams();
   const navigate = useNavigate();
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
+  const [title, setTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const [content, setContent] = useState("");
 
-  
   useEffect(() => {
     const fetchBlogPost = async () => {
       try {
         const blog = await blogService.get(lessonID);
         setTitle(blog.title);
         setContent(blog.content);
+        setCategory(blog.category);
       } catch (error) {
         console.error(error);
       }
@@ -26,14 +28,13 @@ let { lessonID } = useParams();
     fetchBlogPost();
   }, [lessonID]);
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       await blogService.update(lessonID, {
         title,
         content,
+        category,
       });
       toast.success("L'article a bien été modifié");
       navigate(`/lesson/${lessonID}`); // Redirect to the blog post detail page
@@ -46,7 +47,7 @@ let { lessonID } = useParams();
   return (
     <main className="flex flex-col items-center font-header">
       <h1 className="py-2 text-3xl font-bold">Modifier une leçon</h1>
-      <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
+      {/* <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
         <fieldset>
           <legend className="text-2xl pb-6">Description</legend>
           <div className="flex flex-col pb-6">
@@ -71,7 +72,9 @@ let { lessonID } = useParams();
           <Button text={"Annuler"} color={"white"} onClick={() => navigate(`/lesson/${lessonID}`)} />
           <Button text={"Sauvegarder"} color={"emerald-200"} type="submit" />
         </div>
-      </form>
+      </form> */}
+
+      <LessonForm blogTitle={title} blogCategory={category} blogContent={content}/>
     </main>
   );
 };

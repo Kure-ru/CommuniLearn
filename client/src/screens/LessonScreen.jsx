@@ -29,6 +29,7 @@ const LessonScreen = () => {
     console.log("blog deleted", blog);
   };
 
+  console.log(blog)  
   return (
 
       <div className="bg-slate-100 p-12">
@@ -68,6 +69,10 @@ const LessonScreen = () => {
 
             </div>
           )}
+     
+          </div>
+          <div className="py-4 border-b border-slate-100">
+            <span className="bg-emerald-100">{blog.category}</span>
           </div>
         </div>
 

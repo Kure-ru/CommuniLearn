@@ -19,7 +19,6 @@ blogsRouter.get("/", async (request, response) => {
 });
 
 blogsRouter.get("/:id", async (request, response) => {
-  console.log(request.params.id);
   const blog = await Blog.findById(request.params.id);
   if (blog) {
     response.json(blog);
@@ -29,10 +28,12 @@ blogsRouter.get("/:id", async (request, response) => {
 });
 
 blogsRouter.post("/", userExtractor, async (request, response) => {
-  const { title, content } = request.body;
+
+  const { title, category, content } = request.body;
 
   const blog = new Blog({
     title,
+    category,
     content,
   });
 
@@ -64,10 +65,10 @@ blogsRouter.delete("/:id", async (request, response) => {
 });
 
 blogsRouter.put("/:id", async (request, response) => {
-  const { title, content } = request.body;
+  const { title, content, category } = request.body;
   const updatedBlog = await Blog.findByIdAndUpdate(
     request.params.id,
-    { title, content },
+    { title, content, category },
     { new: true }
   );
 
