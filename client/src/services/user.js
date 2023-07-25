@@ -7,6 +7,12 @@ const setToken = (newToken) => {
   token = `Bearer ${newToken}`;
 };
 
+const getUser = async (id) => {
+  console.log("id", id)
+  const response = await axios.get(`${baseUrl}/${id}`);
+  return response.data;
+};
+
 const create = async (newObject) => {
   const config = {
     headers: { Authorization: token },
@@ -26,4 +32,4 @@ const updatePicture = async (id, image) => {
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { create, update, updatePicture, setToken };
+export default { getUser, create, update, updatePicture, setToken };
