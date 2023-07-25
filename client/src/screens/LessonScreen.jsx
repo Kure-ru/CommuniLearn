@@ -37,7 +37,6 @@ const LessonScreen = () => {
   useEffect(() => {
     if (blog.user) {
       userService.getUser(blog.user).then((res) => setAuthor(res));
-      console.log(author);
     }
   }, [blog]);
 
@@ -84,7 +83,7 @@ const LessonScreen = () => {
           </div>
           <div className="flex gap-8 py-4 border-b border-slate-100">
             <span className="bg-emerald-100">{blog.category}</span>
-            <span>{author.name}</span>
+            <Link to={`/users/${author.id}`}><span>{author.name}</span></Link>
           </div>
         </div>
         <MarkdownToHtml content={blog.content}/>
