@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import userService from "../services/user";
+import Button from "../components/Button";
 
 const RegisterScreen = () => {
   const navigate = useNavigate();
@@ -105,10 +106,8 @@ const RegisterScreen = () => {
           />
           </div>
 
-          
-          <button className="bg-emerald-100 p-4  rounded-lg my-4" type="submit">
-            Inscrivez-vous
-          </button>
+          <Button type="submit" text="Inscrivez-vous"/>
+
           <span>
             Déjà inscrit?{" "}
             <Link to="/login" className="text-emerald-500 underline">

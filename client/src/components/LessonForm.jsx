@@ -15,8 +15,8 @@ import MDEditor from "@uiw/react-md-editor";
 
 const LessonForm = ({ blogTitle, blogCategory, blogContent }) => {
   const [title, setTitle] = useState(blogTitle);
-  const [category, setCategory] = useState('');
-  const [content, setContent] = useState('');
+  const [category, setCategory] = useState("");
+  const [content, setContent] = useState("");
   const [blogs, setBlogs] = useState([]);
   const navigate = useNavigate();
 
@@ -31,7 +31,6 @@ const LessonForm = ({ blogTitle, blogCategory, blogContent }) => {
       setContent(blogContent);
     }
   }, [blogTitle, blogCategory, blogContent]);
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -153,12 +152,11 @@ const LessonForm = ({ blogTitle, blogCategory, blogContent }) => {
         {/* <MDEditor.Markdown source={content} style={{ whiteSpace: 'pre-wrap' }} /> */}
       </div>
 
-      <div className="flex justify-around">
+      <div className="flex justify-end gap-8">
+        <Button type="submit" text="sauvegarder" />
         <Link to={"/"}>
-          {" "}
-          <Button type="button" text={"annuler"} color={"slate-200"} />
+          <Button type="elevated" text="annuler" />
         </Link>
-        <Button text={"sauvegarder"} color={"emerald-200"} />
       </div>
     </form>
   );

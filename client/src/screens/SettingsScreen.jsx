@@ -20,8 +20,8 @@ const SettingsScreen = () => {
       .then((returnedUser) => {
         setUsername(returnedUser.username);
         setUser(returnedUser);
-        console.log(user)
-        window.localStorage.clear()
+        console.log(user);
+        window.localStorage.clear();
         window.localStorage.setItem("loggedUser", JSON.stringify(returnedUser));
       })
       .catch(() => {
@@ -49,9 +49,7 @@ const SettingsScreen = () => {
             onChange={handleChange}
           />
           <div>
-            <button className="uppercase font-semibold tracking-wide bg-emerald-100 text-emerald-700 px-4 py-2 rounded-lg mt-2 focus:outline-none hover:bg-emerald-200">
-              Valider
-            </button>
+            <Button type="submit" text="Valider" />
           </div>
         </form>
       </section>
