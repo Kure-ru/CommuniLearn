@@ -1,3 +1,5 @@
+import ReactMarkdown from "react-markdown";
+
 import blogService from "../services/blogs";
 import userService from "../services/user";
 import { useEffect, useState, useContext } from "react";
@@ -6,6 +8,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
 import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
+
+function MarkdownToHtml({ content }) {
+  return <ReactMarkdown>{content}</ReactMarkdown>;
+}
 
 const LessonScreen = () => {
   let { lessonID } = useParams();
@@ -29,10 +35,11 @@ const LessonScreen = () => {
   }, [lessonID]);
 
   useEffect(() => {
-    if (blog.user){
-    userService.getUser(blog.user).then((res) => setAuthor(res));
-    console.log(author)
-  }}, [blog]);
+    if (blog.user) {
+      userService.getUser(blog.user).then((res) => setAuthor(res));
+      console.log(author);
+    }
+  }, [blog]);
 
   const handleDelete = async () => {
     const blog = await blogService.deleteBlog(lessonID);
@@ -80,8 +87,7 @@ const LessonScreen = () => {
             <span>{author.name}</span>
           </div>
         </div>
-
-        <div className="py-4">{blog.content}</div>
+        <MarkdownToHtml content={blog.content}/>
       </div>
     </div>
   );

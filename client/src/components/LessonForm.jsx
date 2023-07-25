@@ -1,10 +1,9 @@
 import blogService from "../services/blogs";
 import Button from "../components/Button";
-import { Form } from "react-router-dom";
 
 import "react-toastify/dist/ReactToastify.css";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { ImLink } from "react-icons/im";
 import { BiMoviePlay } from "react-icons/bi";
@@ -12,13 +11,27 @@ import { TfiYoutube } from "react-icons/tfi";
 import { AiFillFolder } from "react-icons/ai";
 
 import { toast } from "react-toastify";
+import MDEditor from "@uiw/react-md-editor";
 
 const LessonForm = ({ blogTitle, blogCategory, blogContent }) => {
   const [title, setTitle] = useState(blogTitle);
-  const [category, setCategory] = useState(blogCategory);
-  const [content, setContent] = useState(blogContent);
+  const [category, setCategory] = useState('');
+  const [content, setContent] = useState('');
   const [blogs, setBlogs] = useState([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (blogTitle) {
+      setTitle(blogTitle);
+    }
+    if (blogCategory) {
+      setCategory(blogCategory);
+    }
+    if (blogContent) {
+      setContent(blogContent);
+    }
+  }, [blogTitle, blogCategory, blogContent]);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -86,15 +99,15 @@ const LessonForm = ({ blogTitle, blogCategory, blogContent }) => {
             </option>
           </select>
         </div>
-        <div className="flex flex-col">
+        {/* <div className="flex flex-col">
           <label className="text-slate-400">Description *</label>
           <textarea
             className="rounded-md border border-slate-400 p-2"
-            value={content}
-            onChange={({ target }) => setContent(target.value)}
+            value={description}
+            onChange={({ target }) => setDescription(target.value)}
             required
           />
-        </div>
+        </div> */}
       </fieldset>
       {/* <h2 className="text-2xl py-4">Contenu</h2>
    
@@ -133,6 +146,12 @@ const LessonForm = ({ blogTitle, blogCategory, blogContent }) => {
           <AiFillFolder className="mr-4"/> Attacher un fichier
         </label>
     </fieldset> */}
+
+      <div className="container">
+        <label className="text-slate-400">Cours *</label>
+        <MDEditor value={content} onChange={setContent} />
+        {/* <MDEditor.Markdown source={content} style={{ whiteSpace: 'pre-wrap' }} /> */}
+      </div>
 
       <div className="flex justify-around">
         <Link to={"/"}>
