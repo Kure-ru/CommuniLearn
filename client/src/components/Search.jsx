@@ -45,7 +45,6 @@ const Search = ({ data }) => {
     const selectedBlog = blogs.filter(
       (blog) => blog.title.toLowerCase().includes(inputValue.toLowerCase())
     );
-    console.log(selectedBlog)
     setFilteredData(selectedBlog);
     
   };
@@ -54,8 +53,9 @@ const Search = ({ data }) => {
     return (
       <div
         onClick={handleClick}
-        className="flex items-center justify-between mt-4 h-14 p-4 bg-neutral-200 rounded-lg w-full"
+        className="flex items-center justify-between h-14 p-4 bg-neutral-200 rounded-lg w-full"
       >
+        <div className="flex items-center">
         <BsSliders2 className="text-xl mx-4 text-neutral-950" />
         <input
           onClick={handleClick}
@@ -63,6 +63,7 @@ const Search = ({ data }) => {
           className="focus:outline-none bg-neutral-200 text-lg placeholder:text-slate-500"
           placeholder="rechercher un cours"
         />
+        </div>
         <BsSearch className="text-xl mx-4 text-slate-500" />
       </div>
     );
@@ -71,7 +72,7 @@ const Search = ({ data }) => {
       <div
         ref={searchRef}
         onClick={handleClick}
-        className="mt-72 relative top-0 z-50 p-2 flex flex-col  items-start w-full  h-80 bg-neutral-50 shadow-lg rounded-lg"
+        className="mt-64 relative top-0 z-50 p-2 flex flex-col  items-start w-full  h-80 bg-neutral-50 shadow-lg rounded-lg"
       >
         <div className="w-full flex items-center justify-between">
           <div className="flex items-center">

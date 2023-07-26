@@ -30,14 +30,13 @@ const Nav = () => {
     <Navigate replace to="/" />;
   };
 
-  console.log(user);
-
   if (!user) {
     return (
       <nav className="text-lg h-16 text-slate-500 bg-neutral-100 shadow-md pt-3 pb-5 flex justify-around items-center">
         <Link className="self-center" to={"/"}>
           <h3 className="text-emerald-500 text-xl font-bold">CommuniLearn</h3>
         </Link>
+        <div className="flex items-center justify-around gap-8">
         <Link className="hidden md:block" to={"/about"}>
           À propos
         </Link>
@@ -50,6 +49,7 @@ const Nav = () => {
         <Link className="hidden md:block" to="/register">
           S'inscrire
         </Link>
+        </div>
       </nav>
     );
   } else {
@@ -61,12 +61,12 @@ const Nav = () => {
         <div className=" hidden md:block w-6/12">
           <Search className="hidden md:block" data={blogs} />
         </div>
-        <div className="flex gap-8">
-        <Link to={"/settings"} className="flex flex-col justify-center items-center">
+        <div className="flex gap-8 ">
+        <Link to={"/settings"} className="hover:text-teal-900 flex flex-col justify-center items-center">
           <FiSettings  />
           <span className="hidden md:block pt-2 text-sm">Réglages</span>
         </Link>
-        <div className="flex flex-col justify-center items-center" onClick={handleLogout}>
+        <div className="hover:text-teal-900 cursor-pointer flex flex-col justify-center items-center" onClick={handleLogout}>
           <FiLogOut />
           <span className="hidden md:block pt-2 text-sm">Se déconnecter</span>
         </div>
