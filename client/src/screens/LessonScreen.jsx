@@ -44,7 +44,7 @@ const LessonScreen = () => {
   }, [blog]);
 
   const handleDelete = async () => {
-    console.log("delete");
+
     try {
       await blogService.deleteBlog(lessonID);
       setErrorMessage("Article supprimé");
@@ -66,7 +66,7 @@ const LessonScreen = () => {
             <div className="flex gap-8 py-4 border-b border-slate-100">
               <span className="bg-emerald-100">{blog.category}</span>
               <Link to={`/users/${author.id}`}>
-                <span>{author.name}</span>
+                <span>{author.username}</span>
               </Link>
             </div>
           </div>
