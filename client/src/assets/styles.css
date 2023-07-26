@@ -1,0 +1,13 @@
+.markdown__container h1{
+font-size: 2rem;
+}
+
+.markdown__container h2{
+    font-size: 1.6rem;
+    padding: 1rem 0;
+    }
+
+    .markdown__container img{
+margin: 1rem 0;
+max-width: 500px;
+        }

@@ -1,5 +1,5 @@
 import ReactMarkdown from "react-markdown";
-
+import "../assets/styles.css"
 import blogService from "../services/blogs";
 import userService from "../services/user";
 import { AiOutlineDelete } from "react-icons/ai";
@@ -56,25 +56,28 @@ const LessonScreen = () => {
   };
 
   return (
-    <div className="bg-slate-100 p-12">
-      <div className="bg-white p-12 rounded-lg">
-        <div className="py-8">
-          <div className="min-w-0 flex flex-col justify-between items-end gap-8">
+    <div className="bg-neutral-50 p-12">
+      <div className="bg-neutral-100 p-12 rounded-md">
+        <div className="min-w-0 flex flex-col justify-between gap-8">
+          <div>
             <h2 className="text-2xl font-bold leading-7 pr-8 text-slate-900 sm:truncate sm:text-3xl sm:tracking-tight">
               {blog.title}
             </h2>
+            <div className="flex gap-8 py-4 border-b border-slate-100">
+              <span className="bg-emerald-100">{blog.category}</span>
+              <Link to={`/users/${author.id}`}>
+                <span>{author.name}</span>
+              </Link>
+            </div>
           </div>
-          <div className="flex gap-8 py-4 border-b border-slate-100">
-            <span className="bg-emerald-100">{blog.category}</span>
-            <Link to={`/users/${author.id}`}>
-              <span>{author.name}</span>
-            </Link>
+          <div className="markdown__container">
+          <MarkdownToHtml content={blog.content} />
           </div>
+
         </div>
-        <MarkdownToHtml content={blog.content} />
       </div>
       {user && blog.user === user?.id && (
-        <div className="mt-5 flex lg:ml-4 lg:mt-0 gap-4">
+        <div className="mt-5 flex gap-4">
           <Link to={`/edit/${blog.id}`}>
             <Button type="elevated" text="Éditer" />
           </Link>

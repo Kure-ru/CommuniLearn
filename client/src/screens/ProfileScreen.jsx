@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import blogService from "../services/blogs";
 import userService from "../services/user";
+import Card from "../components/Card";
 
 const ProfileScreen = () => {
   let { id } = useParams();
@@ -21,29 +22,22 @@ const ProfileScreen = () => {
         console.log("erreur:", error);
       }
     };
-   
+
     fetchData();
   }, [id]);
 
-  console.log(user);
-  console.log("user blogs", userBlogs);
-  return <div>
-    
-    <span>{user.name}</span>
-    <ul>
-            {userBlogs.map((blog, index) => (
-              <Link to={`/lesson/${blog.id}`}>
-                <li
-                  key={index}
-                  className="flex items-center justify-between mb-4 p-4 bg-slate-100 hover:bg-slate-200 active:bg-slate-300 rounded-xl"
-                >
-                  {blog.title}
-                </li>
-              </Link>
-            ))}
-          </ul>
-
+  return (
+    <div className="p-4">
+      <span className="text-xl">{user.name}</span>
+      <div className="py-4 flex gap-4">
+        {userBlogs.map((blog, index) => (
+          <Link key={blog.id} to={`/lesson/${blog.id}`}>
+            <Card title={blog.title} />
+          </Link>
+        ))}
+      </div>
     </div>
+  );
 };
 
 export default ProfileScreen;

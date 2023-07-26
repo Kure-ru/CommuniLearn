@@ -12,12 +12,14 @@ import { AiFillFolder } from "react-icons/ai";
 
 import { toast } from "react-toastify";
 import MDEditor from "@uiw/react-md-editor";
+import Snackbar from "./Snackbar";
 
 const LessonForm = ({ blogTitle, blogCategory, blogContent }) => {
   const [title, setTitle] = useState(blogTitle);
   const [category, setCategory] = useState("");
   const [content, setContent] = useState("");
   const [blogs, setBlogs] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,16 +45,8 @@ const LessonForm = ({ blogTitle, blogCategory, blogContent }) => {
       setBlogs([...blogs, blog]);
       navigate("/profile");
     } catch (err) {
-      toast.error("Oups! Il y a une petite erreur, essayez plus tard", {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
+      setErrorMessage("Oups! Il y a une petite erreur, essayez plus tard");
+      console.error(err)
     }
   };
   return (
@@ -98,53 +92,7 @@ const LessonForm = ({ blogTitle, blogCategory, blogContent }) => {
             </option>
           </select>
         </div>
-        {/* <div className="flex flex-col">
-          <label className="text-slate-400">Description *</label>
-          <textarea
-            className="rounded-md border border-slate-400 p-2"
-            value={description}
-            onChange={({ target }) => setDescription(target.value)}
-            required
-          />
-        </div> */}
       </fieldset>
-      {/* <h2 className="text-2xl py-4">Contenu</h2>
-   
-    <fieldset>
-      <div className="bg-slate-100 p-10 ">
-        <label className="text-slate-500 mb-4 flex items-center text-lg">
-          <ImLink className="mr-4"/> Ajouter un article
-        </label>
-        <div className="py-4">
-          <input className="rounded-md mr-8 p-2" placeholder="titre de l'article" />
-          <input className="rounded-md mr-8 p-2" placeholder="https://" />
-        </div>
-        <div>
-          <input className="rounded-md mr-8 p-2" placeholder="titre de l'article" />
-          <input className="rounded-md mr-8 p-2" placeholder="https://" />
-        </div>
-
-        <Button text={'+ nouvel article'} color={"emerald-200"}/>
-      </div>
-    </fieldset>
-
-    <fieldset className="bg-slate-100 p-10 ">
-        <label className="text-slate-500 mb-4 flex items-center text-lg">
-          <BiMoviePlay className="mr-4"/> Ajouter une vidéo
-        </label>
-        <div className=" bg-white flex items-center text-slate-400 py-4">
-         <TfiYoutube className="rounded-md text-lg mx-6 border-slate-400"/>
-          <input className=" border-slate-300 border-l mr-8 p-2" placeholder="https://" />
-        </div>
-
-        <Button text={'+ nouvelle vidéo'} color={"emerald-200"}/>
-    </fieldset>
-
-    <fieldset className="bg-slate-100 p-10 ">
-        <label className="text-slate-500 mb-4 flex items-center text-lg">
-          <AiFillFolder className="mr-4"/> Attacher un fichier
-        </label>
-    </fieldset> */}
 
       <div className="container">
         <label className="text-slate-400">Cours *</label>
@@ -158,6 +106,11 @@ const LessonForm = ({ blogTitle, blogCategory, blogContent }) => {
           <Button type="elevated" text="annuler" />
         </Link>
       </div>
+      {errorMessage && (
+        <div>
+          <Snackbar message={errorMessage} />
+        </div>
+      )}
     </form>
   );
 };

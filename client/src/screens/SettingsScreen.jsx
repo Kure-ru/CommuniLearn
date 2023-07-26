@@ -3,8 +3,6 @@ import { UserContext } from "../context/UserContext";
 import Button from "../components/Button";
 import userService from "../services/user";
 
-import ImageUpload from "../components/ImageUploader";
-
 const SettingsScreen = () => {
   const { user, setUser } = useContext(UserContext);
   const [username, setUsername] = useState(user ? user.username : "");

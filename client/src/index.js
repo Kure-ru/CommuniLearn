@@ -13,7 +13,7 @@ import RegisterScreen from "./screens/RegisterScreen.jsx";
 import LoginScreen from "./screens/LoginScreen.jsx";
 import CreateLessonScreen from "./screens/CreateLessonScreen.jsx";
 import SearchScreen from "./screens/SearchScreen.jsx";
-import TeacherDashboard from "./screens/TeacherDashboardScreen.jsx";
+import Dashboard from "./screens/DashboardScreen.jsx";
 import LessonScreen from "./screens/LessonScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import EditLessonScreen from "./screens/EditLessonScreen";
@@ -28,7 +28,7 @@ const router = createBrowserRouter(
       <Route path="/register" element={<RegisterScreen />} />
       <Route path="/new" element={<CreateLessonScreen />} />
       <Route path="/search" element={<SearchScreen />} />
-      <Route path="/profile" element={<TeacherDashboard />} />
+      <Route path="/profile" element={<Dashboard />} />
       <Route path="/lesson/:lessonID" element={<LessonScreen />} />
       <Route path="/edit/:lessonID" element={<EditLessonScreen />} />
       <Route path="/settings" element={<SettingsScreen />} />
