@@ -1,13 +1,15 @@
 import ReactMarkdown from "react-markdown";
-
+import "../assets/styles.css"
 import blogService from "../services/blogs";
 import userService from "../services/user";
+import { AiOutlineDelete } from "react-icons/ai";
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { useParams, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import { AiOutlineEdit, AiOutlineDelete } from "react-icons/ai";
+import Snackbar from "../components/Snackbar";
+import Button from "../components/Button";
 
 function MarkdownToHtml({ content }) {
   return <ReactMarkdown>{content}</ReactMarkdown>;
@@ -18,6 +20,7 @@ const LessonScreen = () => {
   const [blog, setBlog] = useState({});
   const [author, setAuthor] = useState({});
   const { user, setUser } = useContext(UserContext);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -41,53 +44,57 @@ const LessonScreen = () => {
   }, [blog]);
 
   const handleDelete = async () => {
-    const blog = await blogService.deleteBlog(lessonID);
-    console.log("blog deleted", blog);
+    console.log("delete");
+    try {
+      await blogService.deleteBlog(lessonID);
+      setErrorMessage("Article supprimé");
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+      setErrorMessage("L'article n'a pas été supprimé.");
+    }
   };
 
   return (
-    <div className="bg-slate-100 p-12">
-      <div className="bg-white p-12 rounded-lg">
-        <div className="py-8">
-          <div class="min-w-0 flex items-end gap-8">
-            <h2 class="text-2xl font-bold leading-7 pr-8 text-slate-900 sm:truncate sm:text-3xl sm:tracking-tight">
+    <div className="bg-neutral-50 p-12">
+      <div className="bg-neutral-100 p-12 rounded-md">
+        <div className="min-w-0 flex flex-col justify-between gap-8">
+          <div>
+            <h2 className="text-2xl font-bold leading-7 pr-8 text-slate-900 sm:truncate sm:text-3xl sm:tracking-tight">
               {blog.title}
             </h2>
-
-            {user && blog.user === user?.id && (
-              <div class="mt-5 flex lg:ml-4 lg:mt-0">
-                <span class="hidden sm:block">
-                  <Link to={`/edit/${blog.id}`}>
-                    <button
-                      type="button"
-                      class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-emerald-50"
-                    >
-                      <AiOutlineEdit className="-ml-0.5 mr-1.5 h-5 w-5 text-slate-400" />
-                      Editer
-                    </button>
-                  </Link>
-                </span>
-
-                <span class="ml-3 hidden sm:block">
-                  <button
-                    onClick={handleDelete}
-                    type="button"
-                    class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-slate-900 shadow-sm ring-1 ring-inset ring-slate-300 hover:bg-emerald-50"
-                  >
-                    <AiOutlineDelete className="-ml-0.5 mr-1.5 h-5 w-5 text-slate-400" />
-                    Supprimer
-                  </button>
-                </span>
-              </div>
-            )}
+            <div className="flex gap-8 py-4 border-b border-slate-100">
+              <span className="bg-emerald-100">{blog.category}</span>
+              <Link to={`/users/${author.id}`}>
+                <span>{author.name}</span>
+              </Link>
+            </div>
           </div>
-          <div className="flex gap-8 py-4 border-b border-slate-100">
-            <span className="bg-emerald-100">{blog.category}</span>
-            <Link to={`/users/${author.id}`}><span>{author.name}</span></Link>
+          <div className="markdown__container">
+          <MarkdownToHtml content={blog.content} />
           </div>
+
         </div>
-        <MarkdownToHtml content={blog.content}/>
       </div>
+      {user && blog.user === user?.id && (
+        <div className="mt-5 flex gap-4">
+          <Link to={`/edit/${blog.id}`}>
+            <Button type="elevated" text="Éditer" />
+          </Link>
+          <button
+            onClick={handleDelete}
+            className="flex gap-2 items-center bg-red-50 hover:bg-red-100 active:bg-red-200 text-red-600 p-2 shadow-sm hover:shadow-md px-4 rounded-full"
+            text="Supprimer"
+          >
+            <AiOutlineDelete /> supprimer
+          </button>
+        </div>
+      )}
+      {errorMessage && (
+        <div>
+          <Snackbar message={errorMessage} />
+        </div>
+      )}
     </div>
   );
 };

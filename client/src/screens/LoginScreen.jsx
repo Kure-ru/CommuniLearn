@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import loginService from "../services/login";
 import { UserContext } from "../context/UserContext";
+import Button from "../components/Button";
 
 import { FcGoogle } from "react-icons/fc";
 
@@ -84,10 +85,7 @@ const LoginScreen = () => {
               onChange={({ target }) => setPassword(target.value)}
             />
           </div>
-
-          <button className="bg-emerald-100 p-4  rounded-lg mb-4" type="submit">
-            Connectez-vous
-          </button>
+          <Button text="Connectez-vous" type="submit" />
         </form>
         <span>
           Vous n'avez pas encore de compte?{" "}
@@ -95,7 +93,6 @@ const LoginScreen = () => {
             Inscrivez-vous
           </Link>
         </span>
-
 
         {/* <div className="border-t border-zinc-400 pt-6">
           <button className="m-auto flex gap-4 p-4 items-center bg-white">
