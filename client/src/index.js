@@ -19,6 +19,7 @@ import SettingsScreen from "./screens/SettingsScreen";
 import EditLessonScreen from "./screens/EditLessonScreen";
 import AboutScreen from "./screens/AboutScreen";
 import ProfileScreen from "./screens/ProfileScreen";
+import CreateCourseScreen from "./screens/CreateCourseScreen";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,7 +27,7 @@ const router = createBrowserRouter(
       <Route index={true} path="/" element={<HomeScreen />} />
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/register" element={<RegisterScreen />} />
-      <Route path="/new" element={<CreateLessonScreen />} />
+      <Route path="/new" element={<CreateCourseScreen />} />
       <Route path="/search" element={<SearchScreen />} />
       <Route path="/profile" element={<Dashboard />} />
       <Route path="/lesson/:lessonID" element={<LessonScreen />} />

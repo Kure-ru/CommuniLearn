@@ -16,6 +16,10 @@ const BlogSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  course: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Course"
+  }
 });
 
 BlogSchema.set("toJSON", {
