@@ -6,7 +6,7 @@ const Textfield = ({ label, value, onChange }) => {
           {label}
         </label>
         <input
-          className="h-14 border-b border-slate-700 pt-5 pb-2 px-3 bg-neutral-200 hover:bg-neutral-300 focus:outline-none focus:border-emerald-500 focus:border-b-2 focus:ring-none focus:ring-emerald-500 invalid:text-red-600 rounded-sm placeholder:text-slate-700 placeholder:text-lg text-neutral-950"
+          className="h-14 border-b border-slate-700 pt-5 pb-2 px-3 bg-neutral-100 hover:bg-neutral-200 focus:outline-none focus:border-emerald-500 focus:border-b-2 focus:ring-none focus:ring-emerald-500 invalid:text-red-600 rounded-sm placeholder:text-slate-700 placeholder:text-lg text-neutral-950"
           value={value}
           onChange={onChange}
         />
@@ -19,7 +19,7 @@ const Textfield = ({ label, value, onChange }) => {
           {label}
         </label>
         <input
-          className="h-14 border-b border-slate-700 pt-5 pb-2 px-3 bg-neutral-200 hover:bg-neutral-300 focus:outline-none focus:border-emerald-500 focus:border-b-2 focus:ring-none focus:ring-emerald-500 invalid:text-red-600 rounded-sm placeholder:text-slate-700 placeholder:text-lg text-neutral-950"
+          className="h-14 border-b border-slate-700 pt-5 pb-2 px-3 bg-neutral-100 hover:bg-neutral-200 focus:outline-none focus:border-emerald-500 focus:border-b-2 focus:ring-none focus:ring-emerald-500 invalid:text-red-600 rounded-sm placeholder:text-slate-700 placeholder:text-lg text-neutral-950"
           value={value}
           type="password"
           onChange={onChange}

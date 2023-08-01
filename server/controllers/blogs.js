@@ -29,11 +29,11 @@ blogsRouter.get("/:id", async (request, response) => {
 
 blogsRouter.post("/", userExtractor, async (request, response) => {
 
-  const { title, category, content } = request.body;
+  const { title, course, content } = request.body;
 
   const blog = new Blog({
     title,
-    category,
+    course,
     content,
   });
 

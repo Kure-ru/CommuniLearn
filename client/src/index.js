@@ -28,6 +28,7 @@ const router = createBrowserRouter(
       <Route path="/login" element={<LoginScreen />} />
       <Route path="/register" element={<RegisterScreen />} />
       <Route path="/new" element={<CreateCourseScreen />} />
+      <Route path="/:courseID/new" element={<CreateLessonScreen />} />
       <Route path="/search" element={<SearchScreen />} />
       <Route path="/profile" element={<Dashboard />} />
       <Route path="/lesson/:lessonID" element={<LessonScreen />} />
