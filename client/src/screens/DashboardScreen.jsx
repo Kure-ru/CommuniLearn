@@ -2,19 +2,22 @@ import FAB from "../components/FAB";
 import Card from "../components/Card";
 import { Navigate, Link } from "react-router-dom";
 import blogService from "../services/blogs";
+import courseService from "../services/courses"
 import { useEffect, useState, useContext } from "react";
 import { UserContext } from "../context/UserContext";
 
 const Dashboard = () => {
+  const [courses, setCourses] = useState([]);
+  const [userCourses, setUserCourses] = useState([]);
   const [blogs, setBlogs] = useState([]);
   const [userBlogs, setUserBlogs] = useState([]);
   const { user } = useContext(UserContext);
 
   useEffect(() => {
-    blogService.getAll().then((blogs) => {
-      setBlogs(blogs);
+    courseService.getAll().then((courses) => {
+      setCourses(courses);
       if (user && user.id) {
-        setUserBlogs(blogs.filter((blog) => blog.user.id === user.id));
+        setUserCourses(courses.filter((course) => course.user.id === user.id));
       }
     });
   }, [user]);
@@ -31,8 +34,8 @@ const Dashboard = () => {
                 Tous les cours
               </h2>
               <div className="flex flex-col-reverse gap-4 justify-end">
-                {blogs.map((item, index) => (
-                  <Link key="item.id" to={`/lesson/${item.id}`}>
+                {courses.map((item, index) => (
+                  <Link key="item.id" to={`/${item.id}`}>
                     <Card title={item.title} subtitle={item.category} />
                   </Link>
                 ))}
@@ -42,8 +45,8 @@ const Dashboard = () => {
             <section className="flex flex-col p-8">
               <h2 className="text-2xl font-bold font-header mb-4">Mes cours</h2>
               <div className="flex flex-col  gap-4 justify-end">
-                {userBlogs.map((item, index) => (
-                  <Link key="item.id" to={`/lesson/${item.id}`}>
+                {userCourses.map((item, index) => (
+                  <Link key="item.id" to={`/${item.id}`}>
                     <Card title={item.title} />
                   </Link>
                 ))}

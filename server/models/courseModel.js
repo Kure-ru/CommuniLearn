@@ -10,12 +10,12 @@ const CourseSchema = mongoose.Schema({
   category: {
     type: String,
   },
-  chapters: [
+  blogs: [
     {
-        title: { type: String, required: true},
-        lessons: [{ type: mongoose.Schema.Types.ObjectId, ref: "Blog"}]
-  }
-],
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Blog",
+    },
+  ],
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",

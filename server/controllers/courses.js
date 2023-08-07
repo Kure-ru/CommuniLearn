@@ -14,10 +14,13 @@ const getTokenFrom = (request) => {
   return null;
 };
 
-coursesRouter.post("/", userExtractor, async (request, response) => {
+coursesRouter.get("/", async (request, response) => {
+  const courses = await Course.find({}).populate("user", { username: 1, name: 1 });
+  response.json(courses);
+});
 
+coursesRouter.post("/", userExtractor, async (request, response) => {
     const { title, category } = request.body;
-  
     const course = new Course({
       title,
       category,
@@ -39,10 +42,25 @@ coursesRouter.post("/", userExtractor, async (request, response) => {
     course.user = user._id;
   
     const savedCourse = await course.save();
+
     user.courses = user.blogs.concat(savedCourse._id);
     await user.save();
   
     response.status(201).json(savedCourse);
+  });
+
+  coursesRouter.get("/:id", async (request, response) => {
+    const course = await Course.findById(request.params.id);
+    if (course) {
+      response.json(course);
+    } else {
+      response.status(404).end();
+    }
+  });
+
+  coursesRouter.delete("/:id", async (request, response) => {
+    await Course.findByIdAndRemove(request.params.id);
+    response.status(204).end();
   });
 
 module.exports = coursesRouter;

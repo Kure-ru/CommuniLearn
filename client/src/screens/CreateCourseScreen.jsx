@@ -3,18 +3,15 @@ import Snackbar from "../components/Snackbar";
 import Button from "../components/Button";
 import coursesService from "../services/courses";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
 
 const CreateCourseScreen = () => {
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  const [course, setCourse] = useState({
-    title: "",
-    chapters: [],
-  });
+  const [course, setCourse] = useState([]);
 
+  const navigate = useNavigate();
 
   useEffect(() => {
     const userToken = window.localStorage.getItem("loggedUser");
@@ -32,53 +29,13 @@ const CreateCourseScreen = () => {
         title,
         category,
       });
-      setCourse(newCourse)
-      console.log(course)
-
+      setCourse(newCourse);
+      navigate("/");
     } catch (err) {
       setErrorMessage("Oups! Il y a une petite erreur, essayez plus tard");
       console.error(err);
     }
   };
-
-  const handleChapterChange = (index, value) => {
-    const updatedChapters = [...course.chapters];
-    updatedChapters[index] = value;
-    setCourse({ ...course, chapters: updatedChapters });
-  };
-
-  const addChapter = () => {
-    setCourse({ ...course, chapters: [...course.chapters, ""] });
-  };
-
-  const removeChapter = (index) => {
-    const updatedChapters = [...course.chapters];
-    updatedChapters.splice(index, 1);
-    setCourse({ ...course, chapters: updatedChapters });
-  };
-
-  const Chapters = () => {
-    return (
-      <>
-        <section className="flex flex-col gap-8 border border-slate-300 p-5 rounded-sm">
-          {course.chapters.map((courseItem, index) => (
-
-            <div key={course.id} className="flex items-center">
-              <Textfield
-                label={`Chapitre ${index + 1}`}
-                name={`Chapitre ${index}`}
-                value={courseItem.title}
-                required
-                onChange={({ target }) =>
-                  handleChapterChange(index, target.value)}/>
-                </div>
-          ))}
-              </section>
-                   <Link to={`/${course.id}/new`} className="flex justify-center">
-                   <Button type="elevated" text="+" />
-                 </Link>
-          </>
-          )}
 
   return (
     <main className="p-8 flex flex-col justify-center items-center gap-4 ">
@@ -127,9 +84,6 @@ const CreateCourseScreen = () => {
           </div>
         </section>
 
-
-        {course.title && <Chapters />}
-
         <div className="flex justify-end gap-8">
           <Button type="submit" text="sauvegarder" />
           <Link to={"/"}>
@@ -142,8 +96,6 @@ const CreateCourseScreen = () => {
           <Snackbar message={errorMessage} />
         </div>
       )}
-
-
     </main>
   );
 };

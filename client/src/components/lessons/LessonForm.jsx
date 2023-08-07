@@ -39,7 +39,7 @@ const LessonForm = ({ initialValues, isEditMode }) => {
           courseID
         });
       }
-      navigate("/new");
+      navigate(-1);
     } catch (err) {
       setErrorMessage("Oups! Il y a une petite erreur, essayez plus tard");
       console.error(err);
