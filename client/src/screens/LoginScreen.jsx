@@ -3,8 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import loginService from "../services/login";
 import { UserContext } from "../context/UserContext";
 import Button from "../components/Button";
-
-import { FcGoogle } from "react-icons/fc";
+import Textfield from "../components/Textfield";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -20,6 +19,7 @@ const LoginScreen = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    console.log(username);
     try {
       const user = await loginService.login({
         username,
@@ -48,43 +48,29 @@ const LoginScreen = () => {
   };
 
   return (
-    <main className="flex items-center justify-center my-8">
-      <section className="rounded-md font-header bg-zinc-200 p-12 mb-4">
-        <h1 className="py-2 text-3xl font-bold font-header ">Se connecter</h1>
+    <main className="flex  flex-col  items-center p-10 min-h-screen">
+        <h1 className="py-2 text-3xl font-bold">Se connecter</h1>
         <form
           method="post"
-          className="flex flex-col py-6"
+          className="flex flex-col justify-around gap-8 py-6"
           onSubmit={handleLogin}
         >
-          <div>
-            <label className=" block text-gray-700 text-sm font-bold mb-2">
-              Nom d'utilisateur
-            </label>
-            <input
-              className="w-full p-4  rounded-lg mb-4"
-              placeholder="Nom d'utilisateur"
-              name="username"
-              value={username}
-              required
-              onChange={({ target }) => setUsername(target.value)}
-            />
-          </div>
+          <Textfield
+            label="Nom d'utilisateur"
+            name="username"
+            value={username}
+            required
+            onChange={({ target }) => setUsername(target.value)}
+          />
+          <Textfield
+            label="Mot de passe"
+            name="password"
+            type="password"
+            value={password}
+            required
+            onChange={({ target }) => setPassword(target.value)}
+          />
 
-          <div>
-            <label className=" block text-gray-700 text-sm font-bold mb-2">
-              Mot de passe
-            </label>
-            <input
-              className="w-full p-4 rounded-lg mb-4"
-              placeholder="Mot de passe"
-              name="password"
-              type="password"
-              value={password}
-              required
-              minlength="8"
-              onChange={({ target }) => setPassword(target.value)}
-            />
-          </div>
           <Button text="Connectez-vous" type="submit" />
         </form>
         <span>
@@ -93,13 +79,6 @@ const LoginScreen = () => {
             Inscrivez-vous
           </Link>
         </span>
-
-        {/* <div className="border-t border-zinc-400 pt-6">
-          <button className="m-auto flex gap-4 p-4 items-center bg-white">
-            <FcGoogle /> Se connecter avec Google
-          </button>
-        </div> */}
-      </section>
     </main>
   );
 };

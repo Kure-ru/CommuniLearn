@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import blogService from "../services/blogs";
 import LessonForm from "../components/lessons/LessonForm";
 
 const EditLessonScreen = () => {
   let { lessonID } = useParams();
-  const navigate = useNavigate();
   const [lessonData, setLessonData] = useState(null);
 
   useEffect(() => {

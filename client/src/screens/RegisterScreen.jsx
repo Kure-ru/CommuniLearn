@@ -4,6 +4,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import userService from "../services/user";
 import Button from "../components/Button";
+import Textfield from "../components/Textfield";
 
 const RegisterScreen = () => {
   const navigate = useNavigate();
@@ -46,82 +47,47 @@ const RegisterScreen = () => {
     }
   };
   return (
-    <main className="my-4 flex items-center justify-center">
-      <section className="rounded-md font-header bg-zinc-200 py-4 px-8">
-        <h1 className="py-2 text-3xl font-bold font-header ">S'inscrire</h1>
-        <p className="pb-4">
-          Inscrivez-vous gratuitement pour accéder à tous les cours
-        </p>
-        <form className="flex flex-col py-6" onSubmit={handleRegister}>
-          <div>
-            <label className=" block text-gray-700 text-sm font-bold mb-2">
-            Nom d'utilisateur
-            </label>
-          <input
-            className="p-4 w-full rounded-lg mb-4"
-            placeholder="Nom d'utilisateur"
-            name="username"
-            value={username}
-            required
-            onChange={({ target }) => setUsername(target.value)}
-          />
-          </div>
-          
-          {/* <input
-            className="p-4  rounded-lg mb-4"
-            placeholder="Adresse email"
-            name="email"
-            value={email}
-            onChange={({ target }) => setEmail(target.value)}
-          /> */}
-          <div>
-            <label className=" block text-gray-700 text-sm font-bold mb-2">
-            Mot de passe
-            </label>
-          <input
-            className="p-4 rounded-lg mb-4 w-full"
-            placeholder="Mot de passe"
-            name="password"
-            type="password"
-            minlength="8"
-            required
-            value={password}
-            onChange={({ target }) => setPassword(target.value)}
-          />
-          </div>
+    <main className="flex  flex-col items-center p-10 min-h-screen">
+      <h1 className="py-2 text-3xl font-bold font-header ">S'inscrire</h1>
+      <p className="pb-4">
+        Inscrivez-vous gratuitement pour accéder à tous les cours
+      </p>
+      <form
+        method="post"
+        className="flex flex-col w-2/3 justify-around gap-8 py-6"
+        onSubmit={handleRegister}
+      >
+        <Textfield
+          label="Nom d'utilisateur"
+          name="username"
+          value={username}
+          required
+          onChange={({ target }) => setUsername(target.value)}
+        />
+        <Textfield
+          label="Mot de passe"
+          name="password"
+          type="password"
+          value={password}
+          onChange={({ target }) => setPassword(target.value)}
+        />
 
-          <div>
-            <label className=" block text-gray-700 text-sm font-bold mb-2">
-            Confirmer le mot de passe
-            </label>
-            <input
-            className="p-4 rounded-lg mb-4 w-full"
-            placeholder="Confirmez le mot de passe"
-            name="confirmPassword"
-            value={confirmPassword}
-            type="password"
-            minlength="8"
-            required
-            onChange={({ target }) => setConfirmPassword(target.value)}
-          />
-          </div>
+        <Textfield
+          label="Confirmer le mot de passe"
+          name="password"
+          type="password"
+          value={confirmPassword}
+          onChange={({ target }) => setConfirmPassword(target.value)}
+        />
 
-          <Button type="submit" text="Inscrivez-vous"/>
-
-          <span>
-            Déjà inscrit?{" "}
-            <Link to="/login" className="text-emerald-500 underline">
-              Connectez-vous
-            </Link>
-          </span>
-        </form>
-
-        {/* <div className="border-t border-zinc-400 pt-6">
-          <button className="m-auto flex gap-4 p-4 items-center bg-white">
-            <FcGoogle /> S'inscrire avec Google
-          </button>
-        </div> */}
-      </section>
+        <Button text="Inscrivez-vous" type="submit" />
+      </form>
+      <span>
+        Déjà inscrit?{" "}
+        <Link to="/login" className="text-emerald-500 underline">
+          Connectez-vous
+        </Link>
+      </span>
     </main>
   );
 };
