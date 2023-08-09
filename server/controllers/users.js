@@ -1,24 +1,21 @@
 const bcrypt = require("bcrypt");
 const usersRouter = require("express").Router();
 const User = require("../models/userModel");
-const uploadImage = require("../utils/cloudinary");
 
 usersRouter.get("/", async (request, response) => {
   const users = await User.find({}).populate("blogs");
   response.json(users);
 });
 
-
 usersRouter.get("/:id", async (request, response) => {
   const user = await User.findById(request.params.id);
   if (user) {
-    console.log(`user is ${user.name}`)
+    console.log(`user is ${user.name}`);
     response.json(user);
   } else {
     response.status(404).end();
   }
 });
-
 
 usersRouter.post("/", async (request, response) => {
   const { username, password } = request.body;
@@ -29,8 +26,6 @@ usersRouter.post("/", async (request, response) => {
   const user = new User({
     username,
     passwordHash,
-    profilePicture:
-      "https://res.cloudinary.com/degbjs0ku/image/upload/v1688576775/pqxcdrcwekhlfb5pn0m0.jpg",
   });
 
   const savedUser = await user.save();
@@ -40,37 +35,47 @@ usersRouter.post("/", async (request, response) => {
 
 usersRouter.put("/:id", async (request, response, next) => {
   const body = request.body;
+
   const user = {
     username: body.username,
     passwordHash: body.passwordHash,
+    registeredCourses: body.registeredCourses,
   };
 
   User.findByIdAndUpdate(request.params.id, user, { new: true })
     .then((updatedUser) => {
+      console.log(updatedUser);
       response.json(updatedUser);
     })
     .catch((error) => next(error));
 });
 
-usersRouter.post("/uploadImage/:id", async (req, res, next) => {
+
+// mark as read 
+usersRouter.put("/:id/read", async (request, response, next) => {
+  const userId = request.body.userId;
+  const id = request.params.id;
+
   try {
-    const url = uploadImage(req.body.image);
-    const user = {
-      profilePicture: url,
-    };
+    const user = await User.findById(userId);
 
-    const updatedUser = await User.findByIdAndUpdate(req.params.id, user, {
-      new: true,
-    });
-
-    res.json(updatedUser);
-  } catch (error) {
-    if (error.message === "Must supply api_key") {
-      // Handle the "Must supply api_key" error specifically
-      res.status(500).json({ error: "Missing API key" });
-    } else {
-      next(error);
+    if (!user) {
+      return response.status(404).json({ error: "Utilisateur inconnu" });
     }
+
+    const index = user.readBlogs.indexOf(id);
+
+    if (index === -1) {
+      user.readBlogs.push(id);
+    } else {
+      user.readBlogs.splice(index, 1);
+    }
+
+    const updatedUser = await user.save();
+    console.log(updatedUser)
+    response.json(updatedUser);
+  } catch (error) {
+    next(error);
   }
 });
 
