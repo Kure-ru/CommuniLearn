@@ -1,7 +1,7 @@
 const blogsRouter = require("express").Router();
 const Blog = require("../models/blogModel");
 const User = require("../models/userModel");
-const Course = require('../models/courseModel')
+const Course = require("../models/courseModel");
 const jwt = require("jsonwebtoken");
 
 const { userExtractor } = require("../utils/middleware");
@@ -63,7 +63,7 @@ blogsRouter.post("/", userExtractor, async (request, response) => {
     associatedCourse.blogs = associatedCourse.blogs.concat(savedBlog._id);
     await associatedCourse.save();
   } else {
-    return response.status(404).json({ error: "Le cours est introuvable."})
+    return response.status(404).json({ error: "Le cours est introuvable." });
   }
 
   response.status(201).json(savedBlog);

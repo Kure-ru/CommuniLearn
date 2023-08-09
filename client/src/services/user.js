@@ -25,10 +25,11 @@ const update = (id, newObject) => {
   return request.then((response) => response.data);
 };
 
-const updatePicture = async (id, image) => {
-  const response = await axios.post(`${baseUrl}/uploadImage/${id}`, image);
-  return response.data;
+const markRead = async (id, userId) => {
+const response = await axios.put(`${baseUrl}/${id}/read`, { userId });
+console.log(response.data)
+return response.data;
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getUser, create, update, updatePicture, setToken };
+export default { getUser, create, update, setToken, markRead };
